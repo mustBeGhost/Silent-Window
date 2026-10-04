@@ -1,0 +1,45 @@
+Silent Window V1 Feature Schema
+========================================
+Total features (before one-hot): 116
+
+STATIC FEATURES:
+  Age
+  Gender
+  Weight
+  ICUType
+
+TEMPORAL FEATURES (per parameter):
+  {param}_latest
+  {param}_mean
+  {param}_min
+  {param}_max
+  {param}_std
+  {param}_count
+  {param}_time_since_last
+
+TEMPORAL PARAMETERS:
+  HR
+  GCS
+  Temp
+  MAP
+  SysABP
+  DiasABP
+  Glucose
+  Creatinine
+  BUN
+  WBC
+  Platelets
+  HCT
+  Na
+  K
+  HCO3
+  Mg
+
+EXCLUDED FROM V1:
+  Height (47% missing, suspicious extremes)
+  Urine (duplicate aggregation unresolved)
+
+Gender: treated as binary numeric (0/1),
+  imputed with median, scaled with StandardScaler.
+ICUType: categorical, imputed with most_frequent,
+  encoded with OneHotEncoder(handle_unknown='ignore').

@@ -1,0 +1,104 @@
+Silent Window — Dataset Inspection Summary
+Generated: 2026-09-29
+Source: data/raw/Dataset 2.zip (unmodified)
+Extracted to: data/raw/dataset_2/
+
+============================================================
+1. STRUCTURE
+============================================================
+Total patient files       : 3200
+Outcomes records          : 3200
+File format               : .txt (CSV with columns: Time, Parameter, Value)
+Patient directory         : data/raw/dataset_2/train/set-a/
+Outcomes file             : data/raw/dataset_2/train/Outcomes-train.txt
+Unique parameters         : 42
+
+============================================================
+2. OUTCOMES / LABELS
+============================================================
+Columns: RecordID, SAPS-I, SOFA, Length_of_stay, Survival, In-hospital_death
+
+In-hospital_death distribution:
+  Positive (died)         : 443
+  Negative (survived)     : 2757
+  Positive rate           : 13.84%
+  Missing labels          : 0
+  Duplicate RecordIDs     : 0
+
+Patient-Outcome ID matching:
+  Files without outcome   : 0
+  Outcomes without file   : 0
+  Result                  : PERFECT 1:1 MATCH
+
+Sentinel -1 in outcomes:
+  SAPS-I == -1            : 163 patients
+  Survival == -1          : 2018 patients
+
+============================================================
+3. TIME / CHRONOLOGY
+============================================================
+Earliest observation      : 0 min (0h 0m)
+Latest observation        : 2880 min (48h 0m)
+Observation window        : ~48 hours from ICU admission
+Time format               : HH:MM (elapsed time, not clock time)
+Files chronologically sorted: ALL 3200
+Records outside 0-48h    : 0
+Timestamp conversion needed: Yes (HH:MM string to numeric minutes)
+
+============================================================
+4. MISSING DATA
+============================================================
+NaN values                : NONE observed
+Empty patient files       : 0
+Malformed timestamps      : 0
+
+Missingness mechanisms:
+  1. Absent rows          : primary mechanism; parameters not recorded at a
+                            timestamp are simply omitted
+  2. Sentinel -1          : used for unknown static values
+     - Height             : 1503 patients (47.0%)
+     - Weight             : 258 patients (8.1%)
+     - Gender             : 2 patients (0.06%)
+
+Sparsest parameters (by patient coverage):
+  TroponinI               : 5.3%
+  Cholesterol             : 7.6%
+  TroponinT               : 21.3%
+  RespRate                : 27.3%
+
+============================================================
+5. DATA QUALITY
+============================================================
+Duplicate rows (exact)    : 0
+Non-numeric values        : 0
+Empty patient files       : 0
+
+Duplicate (Time, Parameter) pairs:
+  Files affected          : 957 (29.9%)
+  Total duplicate groups  : 3081
+  Groups with IDENTICAL values  : 0
+  Groups with DIFFERENT values  : 3081
+
+  ROOT CAUSE: All 3081 duplicate (Time, Parameter) groups contain
+  DIFFERENT values. This means the same parameter was measured multiple
+  times at the same recorded timestamp with genuinely different readings.
+  The most affected parameters are:
+    MAP                   : 3088 duplicate rows
+    Urine                 : 2569 duplicate rows
+    Temp                  : 338 duplicate rows
+  This is likely due to timestamp granularity (HH:MM) being too coarse
+  to distinguish closely-spaced measurements, or multiple sources
+  recording the same parameter (e.g., arterial line vs cuff for MAP).
+
+  Resolution strategy     : NOT YET DECIDED (deferred to preprocessing)
+
+============================================================
+6. RECORDS PER PATIENT
+============================================================
+Minimum                   : 6
+Maximum                   : 1502
+Mean                      : 438.5
+
+============================================================
+END OF INSPECTION SUMMARY
+============================================================

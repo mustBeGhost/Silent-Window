@@ -1,0 +1,2127 @@
+{
+  "schema_version": 1,
+  "coverage_policy": "at_least_one_supported_temporal_observation_v1",
+  "source_documentation": "https://physionet.org/content/challenge-2012/1.0.0/",
+  "raw_patient_files_sha256": "a06eb6303e58ab55c56092c4d079650a6226260bcb4922ee7bd63799a32c87c9",
+  "outcomes_sha256": "3b4aea44818aae82916add5f941dd481c5774f7491a3600eb89c37050d02dff3",
+  "split_sha256": "1c31c3e31a080d3665a1f93270087ceadcaabc41eaaecc81751246cb04286a32",
+  "development_cohort_sha256": "5d33f2617edf91f752ca56f9f49cbfc48b8899c8457f921e5b0fe2e64e94a864",
+  "source_sha256": {
+    "ml/coverage.py": "7d155de8ab4e3f2b394805661672bdfe4e8800b218906fb7598b2744d7f5e4ec",
+    "ml/data_loader.py": "5dc3679197702451169f04540167d40a6574294aa51aff6b87a6bc6e0fe264d9",
+    "ml/preprocessing.py": "3f9bc9bbf882514ebf8610022f3c43d64d13f9c81a1fb16123fcc909bc15d8b0",
+    "scripts/audit_checkpoint_coverage.py": "fc18c21935f59a5bf14e721f79362423c0ec47ed2c13ad41cf644f0ba7fdeb1b"
+  },
+  "outcome_timing": {
+    "patients": 3200,
+    "hospital_death_labels": 443,
+    "flag_counts": {
+      "hospital_stay_unknown": 53,
+      "hospital_stay_0_or_1_days": 1,
+      "survival_0_or_1_days": 26,
+      "hospital_death_with_survival_0_or_1_days": 23,
+      "hospital_death_with_unknown_survival": 0,
+      "survival_less_than_known_hospital_stay_but_survivor_label": 1
+    },
+    "flagged_record_ids": {
+      "hospital_stay_unknown": [
+        132744,
+        132992,
+        133140,
+        133396,
+        133534,
+        133622,
+        133628,
+        133834,
+        134196,
+        134250,
+        134389,
+        134663,
+        134901,
+        135021,
+        135057,
+        135972,
+        136042,
+        136063,
+        136294,
+        136348,
+        136633,
+        136680,
+        136995,
+        137272,
+        137339,
+        137920,
+        138343,
+        138466,
+        138545,
+        139060,
+        139068,
+        139130,
+        139596,
+        139726,
+        139838,
+        139934,
+        140430,
+        140480,
+        140501,
+        140740,
+        141069,
+        141200,
+        141264,
+        141492,
+        141752,
+        141772,
+        141821,
+        141828,
+        141869,
+        141959,
+        142229,
+        142578,
+        142609
+      ],
+      "hospital_stay_0_or_1_days": [
+        138477
+      ],
+      "survival_0_or_1_days": [
+        132922,
+        133079,
+        133246,
+        133308,
+        133513,
+        133628,
+        134756,
+        135757,
+        136022,
+        136656,
+        136810,
+        136929,
+        136975,
+        137364,
+        137549,
+        138470,
+        138563,
+        139060,
+        139121,
+        139715,
+        140022,
+        140285,
+        140536,
+        140813,
+        141097,
+        141354
+      ],
+      "hospital_death_with_survival_0_or_1_days": [
+        132922,
+        133079,
+        133246,
+        133308,
+        133513,
+        134756,
+        135757,
+        136656,
+        136810,
+        136929,
+        136975,
+        137364,
+        137549,
+        138470,
+        138563,
+        139121,
+        139715,
+        140022,
+        140285,
+        140536,
+        140813,
+        141097,
+        141354
+      ],
+      "hospital_death_with_unknown_survival": [],
+      "survival_less_than_known_hospital_stay_but_survivor_label": [
+        136022
+      ]
+    },
+    "exact_icu_discharge_time_available": false,
+    "exact_death_time_available": false,
+    "landmark_eligibility": "UNKNOWN_FROM_AVAILABLE_FIELDS",
+    "note": "Flags overlap. Day-level hospital outcomes cannot prove alive-and-in-ICU status at 6h/12h/24h. No patients were silently removed based on these flags."
+  },
+  "records_ending_before_checkpoint": {
+    "6h": {
+      "count": 5,
+      "record_ids": [
+        133628,
+        139060,
+        140501,
+        141264,
+        141772
+      ]
+    },
+    "12h": {
+      "count": 7,
+      "record_ids": [
+        133628,
+        138477,
+        139060,
+        140501,
+        141069,
+        141264,
+        141772
+      ]
+    },
+    "24h": {
+      "count": 10,
+      "record_ids": [
+        133628,
+        136042,
+        138477,
+        139060,
+        139130,
+        139596,
+        140501,
+        141069,
+        141264,
+        141772
+      ]
+    }
+  },
+  "coverage": {
+    "all": {
+      "6h": {
+        "patients": 3200,
+        "scoreable_patients": 3138,
+        "no_supported_measurements": 62,
+        "patients_with_at_most_three_supported_parameters": 517,
+        "supported_parameter_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 12.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 29.0,
+          "p90": 78.0,
+          "max": 189.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 3138,
+          "min": 0.0,
+          "median": 21.0,
+          "p90": 55.0,
+          "max": 346.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 3068,
+          "min": 0.0,
+          "median": 22.0,
+          "p90": 55.0,
+          "max": 301.0
+        },
+        "no_bedside_measurement": 132,
+        "newest_bedside_measurement_older_than_6h": 0,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 3066,
+            "patients_missing_measurement": 134,
+            "latest_age_minutes": {
+              "known_count": 3066,
+              "min": 0.0,
+              "median": 22.0,
+              "p90": 55.0,
+              "max": 327.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 2946,
+            "patients_missing_measurement": 254,
+            "latest_age_minutes": {
+              "known_count": 2946,
+              "min": 0.0,
+              "median": 82.0,
+              "p90": 226.0,
+              "max": 360.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 3025,
+            "patients_missing_measurement": 175,
+            "latest_age_minutes": {
+              "known_count": 3025,
+              "min": 0.0,
+              "median": 79.0,
+              "p90": 262.0,
+              "max": 360.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 1759,
+            "patients_missing_measurement": 1441,
+            "latest_age_minutes": {
+              "known_count": 1759,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 56.0,
+              "max": 358.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 1781,
+            "patients_missing_measurement": 1419,
+            "latest_age_minutes": {
+              "known_count": 1781,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 56.0,
+              "max": 358.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 1781,
+            "patients_missing_measurement": 1419,
+            "latest_age_minutes": {
+              "known_count": 1781,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 56.0,
+              "max": 358.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 1768,
+            "patients_missing_measurement": 1432,
+            "latest_age_minutes": {
+              "known_count": 1768,
+              "min": 0.0,
+              "median": 188.5,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 2108,
+            "patients_missing_measurement": 1092,
+            "latest_age_minutes": {
+              "known_count": 2108,
+              "min": 0.0,
+              "median": 182.0,
+              "p90": 315.0,
+              "max": 360.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 2108,
+            "patients_missing_measurement": 1092,
+            "latest_age_minutes": {
+              "known_count": 2108,
+              "min": 0.0,
+              "median": 182.0,
+              "p90": 315.0,
+              "max": 360.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 1941,
+            "patients_missing_measurement": 1259,
+            "latest_age_minutes": {
+              "known_count": 1941,
+              "min": 0.0,
+              "median": 188.0,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 2145,
+            "patients_missing_measurement": 1055,
+            "latest_age_minutes": {
+              "known_count": 2145,
+              "min": 0.0,
+              "median": 181.0,
+              "p90": 313.0,
+              "max": 360.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 2236,
+            "patients_missing_measurement": 964,
+            "latest_age_minutes": {
+              "known_count": 2236,
+              "min": 0.0,
+              "median": 166.0,
+              "p90": 303.0,
+              "max": 360.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 1792,
+            "patients_missing_measurement": 1408,
+            "latest_age_minutes": {
+              "known_count": 1792,
+              "min": 0.0,
+              "median": 188.0,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 1825,
+            "patients_missing_measurement": 1375,
+            "latest_age_minutes": {
+              "known_count": 1825,
+              "min": 0.0,
+              "median": 185.0,
+              "p90": 316.60000000000014,
+              "max": 360.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 2054,
+            "patients_missing_measurement": 1146,
+            "latest_age_minutes": {
+              "known_count": 2054,
+              "min": 0.0,
+              "median": 181.0,
+              "p90": 311.4000000000001,
+              "max": 360.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 1754,
+            "patients_missing_measurement": 1446,
+            "latest_age_minutes": {
+              "known_count": 1754,
+              "min": 0.0,
+              "median": 180.5,
+              "p90": 304.0,
+              "max": 360.0
+            }
+          }
+        }
+      },
+      "12h": {
+        "patients": 3200,
+        "scoreable_patients": 3191,
+        "no_supported_measurements": 9,
+        "patients_with_at_most_three_supported_parameters": 144,
+        "supported_parameter_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 13.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 62.0,
+          "p90": 137.0,
+          "max": 274.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 3191,
+          "min": 0.0,
+          "median": 25.0,
+          "p90": 56.0,
+          "max": 692.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 3127,
+          "min": 0.0,
+          "median": 26.0,
+          "p90": 55.0,
+          "max": 596.0
+        },
+        "no_bedside_measurement": 73,
+        "newest_bedside_measurement_older_than_6h": 12,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 3127,
+            "patients_missing_measurement": 73,
+            "latest_age_minutes": {
+              "known_count": 3127,
+              "min": 0.0,
+              "median": 26.0,
+              "p90": 55.0,
+              "max": 596.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 3101,
+            "patients_missing_measurement": 99,
+            "latest_age_minutes": {
+              "known_count": 3101,
+              "min": 0.0,
+              "median": 98.0,
+              "p90": 227.0,
+              "max": 715.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 3124,
+            "patients_missing_measurement": 76,
+            "latest_age_minutes": {
+              "known_count": 3124,
+              "min": 0.0,
+              "median": 81.0,
+              "p90": 228.0,
+              "max": 715.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 1974,
+            "patients_missing_measurement": 1226,
+            "latest_age_minutes": {
+              "known_count": 1974,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 1983,
+            "patients_missing_measurement": 1217,
+            "latest_age_minutes": {
+              "known_count": 1983,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 1983,
+            "patients_missing_measurement": 1217,
+            "latest_age_minutes": {
+              "known_count": 1983,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 2375,
+            "patients_missing_measurement": 825,
+            "latest_age_minutes": {
+              "known_count": 2375,
+              "min": 0.0,
+              "median": 277.0,
+              "p90": 601.5999999999999,
+              "max": 719.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 2714,
+            "patients_missing_measurement": 486,
+            "latest_age_minutes": {
+              "known_count": 2714,
+              "min": 0.0,
+              "median": 311.0,
+              "p90": 602.0,
+              "max": 719.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 2713,
+            "patients_missing_measurement": 487,
+            "latest_age_minutes": {
+              "known_count": 2713,
+              "min": 0.0,
+              "median": 313.0,
+              "p90": 602.0,
+              "max": 719.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 2547,
+            "patients_missing_measurement": 653,
+            "latest_age_minutes": {
+              "known_count": 2547,
+              "min": 0.0,
+              "median": 322.0,
+              "p90": 615.0,
+              "max": 720.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 2735,
+            "patients_missing_measurement": 465,
+            "latest_age_minutes": {
+              "known_count": 2735,
+              "min": 0.0,
+              "median": 316.0,
+              "p90": 608.0,
+              "max": 720.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 2802,
+            "patients_missing_measurement": 398,
+            "latest_age_minutes": {
+              "known_count": 2802,
+              "min": 0.0,
+              "median": 233.0,
+              "p90": 573.0,
+              "max": 720.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 2394,
+            "patients_missing_measurement": 806,
+            "latest_age_minutes": {
+              "known_count": 2394,
+              "min": 0.0,
+              "median": 275.0,
+              "p90": 600.0,
+              "max": 719.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 2468,
+            "patients_missing_measurement": 732,
+            "latest_age_minutes": {
+              "known_count": 2468,
+              "min": 0.0,
+              "median": 263.5,
+              "p90": 586.0,
+              "max": 719.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 2663,
+            "patients_missing_measurement": 537,
+            "latest_age_minutes": {
+              "known_count": 2663,
+              "min": 0.0,
+              "median": 310.0,
+              "p90": 600.0,
+              "max": 719.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 2480,
+            "patients_missing_measurement": 720,
+            "latest_age_minutes": {
+              "known_count": 2480,
+              "min": 0.0,
+              "median": 269.0,
+              "p90": 587.0,
+              "max": 720.0
+            }
+          }
+        }
+      },
+      "24h": {
+        "patients": 3200,
+        "scoreable_patients": 3197,
+        "no_supported_measurements": 3,
+        "patients_with_at_most_three_supported_parameters": 30,
+        "supported_parameter_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 16.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 3200,
+          "min": 0.0,
+          "median": 128.0,
+          "p90": 230.0,
+          "max": 416.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 3197,
+          "min": 0.0,
+          "median": 27.0,
+          "p90": 57.0,
+          "max": 1243.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 3138,
+          "min": 0.0,
+          "median": 28.0,
+          "p90": 57.0,
+          "max": 1261.0
+        },
+        "no_bedside_measurement": 62,
+        "newest_bedside_measurement_older_than_6h": 20,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 3138,
+            "patients_missing_measurement": 62,
+            "latest_age_minutes": {
+              "known_count": 3138,
+              "min": 0.0,
+              "median": 28.0,
+              "p90": 57.0,
+              "max": 1261.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 3133,
+            "patients_missing_measurement": 67,
+            "latest_age_minutes": {
+              "known_count": 3133,
+              "min": 0.0,
+              "median": 105.0,
+              "p90": 229.0,
+              "max": 1433.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 3136,
+            "patients_missing_measurement": 64,
+            "latest_age_minutes": {
+              "known_count": 3136,
+              "min": 0.0,
+              "median": 94.0,
+              "p90": 234.0,
+              "max": 1431.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 2123,
+            "patients_missing_measurement": 1077,
+            "latest_age_minutes": {
+              "known_count": 2123,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 103.0,
+              "max": 1438.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 2128,
+            "patients_missing_measurement": 1072,
+            "latest_age_minutes": {
+              "known_count": 2128,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 103.0,
+              "max": 1438.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 2128,
+            "patients_missing_measurement": 1072,
+            "latest_age_minutes": {
+              "known_count": 2128,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 103.0,
+              "max": 1438.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 2973,
+            "patients_missing_measurement": 227,
+            "latest_age_minutes": {
+              "known_count": 2973,
+              "min": 0.0,
+              "median": 524.0,
+              "p90": 1067.0,
+              "max": 1432.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 3117,
+            "patients_missing_measurement": 83,
+            "latest_age_minutes": {
+              "known_count": 3117,
+              "min": 0.0,
+              "median": 504.0,
+              "p90": 1041.4,
+              "max": 1436.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 3117,
+            "patients_missing_measurement": 83,
+            "latest_age_minutes": {
+              "known_count": 3117,
+              "min": 0.0,
+              "median": 507.0,
+              "p90": 1046.4,
+              "max": 1436.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 3085,
+            "patients_missing_measurement": 115,
+            "latest_age_minutes": {
+              "known_count": 3085,
+              "min": 0.0,
+              "median": 560.0,
+              "p90": 1094.6,
+              "max": 1436.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 3095,
+            "patients_missing_measurement": 105,
+            "latest_age_minutes": {
+              "known_count": 3095,
+              "min": 0.0,
+              "median": 541.0,
+              "p90": 1083.6,
+              "max": 1436.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 3112,
+            "patients_missing_measurement": 88,
+            "latest_age_minutes": {
+              "known_count": 3112,
+              "min": 0.0,
+              "median": 432.0,
+              "p90": 1009.8000000000002,
+              "max": 1436.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 3075,
+            "patients_missing_measurement": 125,
+            "latest_age_minutes": {
+              "known_count": 3075,
+              "min": 0.0,
+              "median": 505.0,
+              "p90": 1046.6,
+              "max": 1432.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 3007,
+            "patients_missing_measurement": 193,
+            "latest_age_minutes": {
+              "known_count": 3007,
+              "min": 0.0,
+              "median": 480.0,
+              "p90": 1015.0,
+              "max": 1432.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 3091,
+            "patients_missing_measurement": 109,
+            "latest_age_minutes": {
+              "known_count": 3091,
+              "min": 0.0,
+              "median": 510.0,
+              "p90": 1050.0,
+              "max": 1432.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 2975,
+            "patients_missing_measurement": 225,
+            "latest_age_minutes": {
+              "known_count": 2975,
+              "min": 0.0,
+              "median": 505.0,
+              "p90": 1072.0,
+              "max": 1440.0
+            }
+          }
+        }
+      }
+    },
+    "development": {
+      "6h": {
+        "patients": 2560,
+        "scoreable_patients": 2506,
+        "no_supported_measurements": 54,
+        "patients_with_at_most_three_supported_parameters": 402,
+        "supported_parameter_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 13.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 29.0,
+          "p90": 79.09999999999991,
+          "max": 189.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 2506,
+          "min": 0.0,
+          "median": 21.0,
+          "p90": 55.0,
+          "max": 346.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 2455,
+          "min": 0.0,
+          "median": 22.0,
+          "p90": 55.0,
+          "max": 301.0
+        },
+        "no_bedside_measurement": 105,
+        "newest_bedside_measurement_older_than_6h": 0,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 2453,
+            "patients_missing_measurement": 107,
+            "latest_age_minutes": {
+              "known_count": 2453,
+              "min": 0.0,
+              "median": 22.0,
+              "p90": 55.0,
+              "max": 327.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 2362,
+            "patients_missing_measurement": 198,
+            "latest_age_minutes": {
+              "known_count": 2362,
+              "min": 0.0,
+              "median": 82.0,
+              "p90": 227.9000000000001,
+              "max": 360.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 2421,
+            "patients_missing_measurement": 139,
+            "latest_age_minutes": {
+              "known_count": 2421,
+              "min": 0.0,
+              "median": 78.0,
+              "p90": 259.0,
+              "max": 360.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 1416,
+            "patients_missing_measurement": 1144,
+            "latest_age_minutes": {
+              "known_count": 1416,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 57.0,
+              "max": 358.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 1434,
+            "patients_missing_measurement": 1126,
+            "latest_age_minutes": {
+              "known_count": 1434,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 56.0,
+              "max": 358.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 1434,
+            "patients_missing_measurement": 1126,
+            "latest_age_minutes": {
+              "known_count": 1434,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 56.0,
+              "max": 358.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 1433,
+            "patients_missing_measurement": 1127,
+            "latest_age_minutes": {
+              "known_count": 1433,
+              "min": 0.0,
+              "median": 190.0,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 1708,
+            "patients_missing_measurement": 852,
+            "latest_age_minutes": {
+              "known_count": 1708,
+              "min": 0.0,
+              "median": 184.0,
+              "p90": 313.5999999999999,
+              "max": 360.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 1708,
+            "patients_missing_measurement": 852,
+            "latest_age_minutes": {
+              "known_count": 1708,
+              "min": 0.0,
+              "median": 184.0,
+              "p90": 313.0,
+              "max": 360.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 1567,
+            "patients_missing_measurement": 993,
+            "latest_age_minutes": {
+              "known_count": 1567,
+              "min": 0.0,
+              "median": 189.0,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 1724,
+            "patients_missing_measurement": 836,
+            "latest_age_minutes": {
+              "known_count": 1724,
+              "min": 0.0,
+              "median": 182.0,
+              "p90": 312.0,
+              "max": 360.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 1801,
+            "patients_missing_measurement": 759,
+            "latest_age_minutes": {
+              "known_count": 1801,
+              "min": 0.0,
+              "median": 168.0,
+              "p90": 300.0,
+              "max": 360.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 1454,
+            "patients_missing_measurement": 1106,
+            "latest_age_minutes": {
+              "known_count": 1454,
+              "min": 0.0,
+              "median": 190.0,
+              "p90": 315.70000000000005,
+              "max": 360.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 1478,
+            "patients_missing_measurement": 1082,
+            "latest_age_minutes": {
+              "known_count": 1478,
+              "min": 0.0,
+              "median": 187.0,
+              "p90": 315.0,
+              "max": 360.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 1659,
+            "patients_missing_measurement": 901,
+            "latest_age_minutes": {
+              "known_count": 1659,
+              "min": 0.0,
+              "median": 183.0,
+              "p90": 309.20000000000005,
+              "max": 360.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 1421,
+            "patients_missing_measurement": 1139,
+            "latest_age_minutes": {
+              "known_count": 1421,
+              "min": 0.0,
+              "median": 181.0,
+              "p90": 301.0,
+              "max": 360.0
+            }
+          }
+        }
+      },
+      "12h": {
+        "patients": 2560,
+        "scoreable_patients": 2554,
+        "no_supported_measurements": 6,
+        "patients_with_at_most_three_supported_parameters": 106,
+        "supported_parameter_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 13.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 63.0,
+          "p90": 137.0,
+          "max": 274.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 2554,
+          "min": 0.0,
+          "median": 25.0,
+          "p90": 55.0,
+          "max": 673.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 2504,
+          "min": 0.0,
+          "median": 26.0,
+          "p90": 55.0,
+          "max": 582.0
+        },
+        "no_bedside_measurement": 56,
+        "newest_bedside_measurement_older_than_6h": 9,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 2504,
+            "patients_missing_measurement": 56,
+            "latest_age_minutes": {
+              "known_count": 2504,
+              "min": 0.0,
+              "median": 26.0,
+              "p90": 55.0,
+              "max": 582.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 2485,
+            "patients_missing_measurement": 75,
+            "latest_age_minutes": {
+              "known_count": 2485,
+              "min": 0.0,
+              "median": 98.0,
+              "p90": 225.5999999999999,
+              "max": 715.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 2502,
+            "patients_missing_measurement": 58,
+            "latest_age_minutes": {
+              "known_count": 2502,
+              "min": 0.0,
+              "median": 79.0,
+              "p90": 227.9000000000001,
+              "max": 715.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 1585,
+            "patients_missing_measurement": 975,
+            "latest_age_minutes": {
+              "known_count": 1585,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 1592,
+            "patients_missing_measurement": 968,
+            "latest_age_minutes": {
+              "known_count": 1592,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 1592,
+            "patients_missing_measurement": 968,
+            "latest_age_minutes": {
+              "known_count": 1592,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 718.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 1916,
+            "patients_missing_measurement": 644,
+            "latest_age_minutes": {
+              "known_count": 1916,
+              "min": 0.0,
+              "median": 277.0,
+              "p90": 600.0,
+              "max": 719.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 2182,
+            "patients_missing_measurement": 378,
+            "latest_age_minutes": {
+              "known_count": 2182,
+              "min": 0.0,
+              "median": 309.5,
+              "p90": 603.0,
+              "max": 719.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 2181,
+            "patients_missing_measurement": 379,
+            "latest_age_minutes": {
+              "known_count": 2181,
+              "min": 0.0,
+              "median": 311.0,
+              "p90": 603.0,
+              "max": 719.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 2050,
+            "patients_missing_measurement": 510,
+            "latest_age_minutes": {
+              "known_count": 2050,
+              "min": 0.0,
+              "median": 318.0,
+              "p90": 613.0,
+              "max": 719.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 2197,
+            "patients_missing_measurement": 363,
+            "latest_age_minutes": {
+              "known_count": 2197,
+              "min": 0.0,
+              "median": 309.0,
+              "p90": 608.0,
+              "max": 719.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 2251,
+            "patients_missing_measurement": 309,
+            "latest_age_minutes": {
+              "known_count": 2251,
+              "min": 0.0,
+              "median": 233.0,
+              "p90": 575.0,
+              "max": 719.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 1927,
+            "patients_missing_measurement": 633,
+            "latest_age_minutes": {
+              "known_count": 1927,
+              "min": 0.0,
+              "median": 274.0,
+              "p90": 600.0,
+              "max": 719.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 1991,
+            "patients_missing_measurement": 569,
+            "latest_age_minutes": {
+              "known_count": 1991,
+              "min": 0.0,
+              "median": 263.0,
+              "p90": 586.0,
+              "max": 719.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 2138,
+            "patients_missing_measurement": 422,
+            "latest_age_minutes": {
+              "known_count": 2138,
+              "min": 0.0,
+              "median": 307.0,
+              "p90": 600.3,
+              "max": 719.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 1998,
+            "patients_missing_measurement": 562,
+            "latest_age_minutes": {
+              "known_count": 1998,
+              "min": 0.0,
+              "median": 268.0,
+              "p90": 587.0,
+              "max": 720.0
+            }
+          }
+        }
+      },
+      "24h": {
+        "patients": 2560,
+        "scoreable_patients": 2559,
+        "no_supported_measurements": 1,
+        "patients_with_at_most_three_supported_parameters": 23,
+        "supported_parameter_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 16.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 2560,
+          "min": 0.0,
+          "median": 128.0,
+          "p90": 229.0999999999999,
+          "max": 416.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 2559,
+          "min": 0.0,
+          "median": 27.0,
+          "p90": 57.20000000000027,
+          "max": 1243.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 2513,
+          "min": 0.0,
+          "median": 28.0,
+          "p90": 57.0,
+          "max": 1261.0
+        },
+        "no_bedside_measurement": 47,
+        "newest_bedside_measurement_older_than_6h": 15,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 2513,
+            "patients_missing_measurement": 47,
+            "latest_age_minutes": {
+              "known_count": 2513,
+              "min": 0.0,
+              "median": 28.0,
+              "p90": 57.0,
+              "max": 1261.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 2509,
+            "patients_missing_measurement": 51,
+            "latest_age_minutes": {
+              "known_count": 2509,
+              "min": 0.0,
+              "median": 105.0,
+              "p90": 229.20000000000027,
+              "max": 1433.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 2512,
+            "patients_missing_measurement": 48,
+            "latest_age_minutes": {
+              "known_count": 2512,
+              "min": 0.0,
+              "median": 93.0,
+              "p90": 234.0,
+              "max": 1431.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 1703,
+            "patients_missing_measurement": 857,
+            "latest_age_minutes": {
+              "known_count": 1703,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 111.79999999999995,
+              "max": 1438.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 1708,
+            "patients_missing_measurement": 852,
+            "latest_age_minutes": {
+              "known_count": 1708,
+              "min": 0.0,
+              "median": 29.5,
+              "p90": 112.0,
+              "max": 1438.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 1708,
+            "patients_missing_measurement": 852,
+            "latest_age_minutes": {
+              "known_count": 1708,
+              "min": 0.0,
+              "median": 29.5,
+              "p90": 112.0,
+              "max": 1438.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 2388,
+            "patients_missing_measurement": 172,
+            "latest_age_minutes": {
+              "known_count": 2388,
+              "min": 0.0,
+              "median": 523.5,
+              "p90": 1067.0,
+              "max": 1432.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 2497,
+            "patients_missing_measurement": 63,
+            "latest_age_minutes": {
+              "known_count": 2497,
+              "min": 0.0,
+              "median": 503.0,
+              "p90": 1033.0000000000005,
+              "max": 1436.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 2497,
+            "patients_missing_measurement": 63,
+            "latest_age_minutes": {
+              "known_count": 2497,
+              "min": 0.0,
+              "median": 507.0,
+              "p90": 1039.4,
+              "max": 1436.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 2469,
+            "patients_missing_measurement": 91,
+            "latest_age_minutes": {
+              "known_count": 2469,
+              "min": 0.0,
+              "median": 561.0,
+              "p90": 1092.2000000000003,
+              "max": 1436.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 2476,
+            "patients_missing_measurement": 84,
+            "latest_age_minutes": {
+              "known_count": 2476,
+              "min": 0.0,
+              "median": 541.0,
+              "p90": 1085.5,
+              "max": 1436.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 2490,
+            "patients_missing_measurement": 70,
+            "latest_age_minutes": {
+              "known_count": 2490,
+              "min": 0.0,
+              "median": 428.5,
+              "p90": 997.0,
+              "max": 1436.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 2466,
+            "patients_missing_measurement": 94,
+            "latest_age_minutes": {
+              "known_count": 2466,
+              "min": 0.0,
+              "median": 505.5,
+              "p90": 1037.0,
+              "max": 1432.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 2414,
+            "patients_missing_measurement": 146,
+            "latest_age_minutes": {
+              "known_count": 2414,
+              "min": 0.0,
+              "median": 479.0,
+              "p90": 1012.7000000000003,
+              "max": 1432.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 2477,
+            "patients_missing_measurement": 83,
+            "latest_age_minutes": {
+              "known_count": 2477,
+              "min": 0.0,
+              "median": 512.0,
+              "p90": 1042.0,
+              "max": 1432.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 2382,
+            "patients_missing_measurement": 178,
+            "latest_age_minutes": {
+              "known_count": 2382,
+              "min": 0.0,
+              "median": 508.0,
+              "p90": 1079.0,
+              "max": 1440.0
+            }
+          }
+        }
+      }
+    },
+    "development_holdout": {
+      "6h": {
+        "patients": 640,
+        "scoreable_patients": 632,
+        "no_supported_measurements": 8,
+        "patients_with_at_most_three_supported_parameters": 115,
+        "supported_parameter_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 12.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 27.0,
+          "p90": 75.0,
+          "max": 144.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 632,
+          "min": 0.0,
+          "median": 22.0,
+          "p90": 56.0,
+          "max": 338.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 613,
+          "min": 0.0,
+          "median": 23.0,
+          "p90": 55.0,
+          "max": 236.0
+        },
+        "no_bedside_measurement": 27,
+        "newest_bedside_measurement_older_than_6h": 0,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 613,
+            "patients_missing_measurement": 27,
+            "latest_age_minutes": {
+              "known_count": 613,
+              "min": 0.0,
+              "median": 23.0,
+              "p90": 55.0,
+              "max": 236.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 584,
+            "patients_missing_measurement": 56,
+            "latest_age_minutes": {
+              "known_count": 584,
+              "min": 0.0,
+              "median": 78.5,
+              "p90": 222.70000000000005,
+              "max": 359.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 604,
+            "patients_missing_measurement": 36,
+            "latest_age_minutes": {
+              "known_count": 604,
+              "min": 0.0,
+              "median": 79.5,
+              "p90": 268.4000000000001,
+              "max": 359.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 343,
+            "patients_missing_measurement": 297,
+            "latest_age_minutes": {
+              "known_count": 343,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 54.80000000000001,
+              "max": 290.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 347,
+            "patients_missing_measurement": 293,
+            "latest_age_minutes": {
+              "known_count": 347,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 55.0,
+              "max": 290.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 347,
+            "patients_missing_measurement": 293,
+            "latest_age_minutes": {
+              "known_count": 347,
+              "min": 0.0,
+              "median": 20.0,
+              "p90": 55.0,
+              "max": 290.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 335,
+            "patients_missing_measurement": 305,
+            "latest_age_minutes": {
+              "known_count": 335,
+              "min": 0.0,
+              "median": 183.0,
+              "p90": 319.0,
+              "max": 360.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 400,
+            "patients_missing_measurement": 240,
+            "latest_age_minutes": {
+              "known_count": 400,
+              "min": 0.0,
+              "median": 171.5,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 400,
+            "patients_missing_measurement": 240,
+            "latest_age_minutes": {
+              "known_count": 400,
+              "min": 0.0,
+              "median": 171.5,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 374,
+            "patients_missing_measurement": 266,
+            "latest_age_minutes": {
+              "known_count": 374,
+              "min": 0.0,
+              "median": 183.0,
+              "p90": 322.09999999999997,
+              "max": 360.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 421,
+            "patients_missing_measurement": 219,
+            "latest_age_minutes": {
+              "known_count": 421,
+              "min": 0.0,
+              "median": 178.0,
+              "p90": 317.0,
+              "max": 360.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 435,
+            "patients_missing_measurement": 205,
+            "latest_age_minutes": {
+              "known_count": 435,
+              "min": 0.0,
+              "median": 163.0,
+              "p90": 312.6,
+              "max": 360.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 338,
+            "patients_missing_measurement": 302,
+            "latest_age_minutes": {
+              "known_count": 338,
+              "min": 0.0,
+              "median": 179.0,
+              "p90": 318.3,
+              "max": 360.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 347,
+            "patients_missing_measurement": 293,
+            "latest_age_minutes": {
+              "known_count": 347,
+              "min": 0.0,
+              "median": 179.0,
+              "p90": 317.40000000000003,
+              "max": 360.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 395,
+            "patients_missing_measurement": 245,
+            "latest_age_minutes": {
+              "known_count": 395,
+              "min": 0.0,
+              "median": 175.0,
+              "p90": 313.6,
+              "max": 360.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 333,
+            "patients_missing_measurement": 307,
+            "latest_age_minutes": {
+              "known_count": 333,
+              "min": 0.0,
+              "median": 179.0,
+              "p90": 313.0,
+              "max": 360.0
+            }
+          }
+        }
+      },
+      "12h": {
+        "patients": 640,
+        "scoreable_patients": 637,
+        "no_supported_measurements": 3,
+        "patients_with_at_most_three_supported_parameters": 38,
+        "supported_parameter_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 13.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 61.0,
+          "p90": 131.0,
+          "max": 218.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 637,
+          "min": 0.0,
+          "median": 24.0,
+          "p90": 57.0,
+          "max": 692.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 623,
+          "min": 0.0,
+          "median": 25.0,
+          "p90": 56.0,
+          "max": 596.0
+        },
+        "no_bedside_measurement": 17,
+        "newest_bedside_measurement_older_than_6h": 3,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 623,
+            "patients_missing_measurement": 17,
+            "latest_age_minutes": {
+              "known_count": 623,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 56.0,
+              "max": 596.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 616,
+            "patients_missing_measurement": 24,
+            "latest_age_minutes": {
+              "known_count": 616,
+              "min": 0.0,
+              "median": 99.0,
+              "p90": 231.0,
+              "max": 630.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 622,
+            "patients_missing_measurement": 18,
+            "latest_age_minutes": {
+              "known_count": 622,
+              "min": 0.0,
+              "median": 90.0,
+              "p90": 231.0,
+              "max": 691.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 389,
+            "patients_missing_measurement": 251,
+            "latest_age_minutes": {
+              "known_count": 389,
+              "min": 0.0,
+              "median": 25.0,
+              "p90": 57.0,
+              "max": 650.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 391,
+            "patients_missing_measurement": 249,
+            "latest_age_minutes": {
+              "known_count": 391,
+              "min": 0.0,
+              "median": 26.0,
+              "p90": 57.0,
+              "max": 650.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 391,
+            "patients_missing_measurement": 249,
+            "latest_age_minutes": {
+              "known_count": 391,
+              "min": 0.0,
+              "median": 26.0,
+              "p90": 57.0,
+              "max": 650.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 459,
+            "patients_missing_measurement": 181,
+            "latest_age_minutes": {
+              "known_count": 459,
+              "min": 4.0,
+              "median": 282.0,
+              "p90": 613.4,
+              "max": 716.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 532,
+            "patients_missing_measurement": 108,
+            "latest_age_minutes": {
+              "known_count": 532,
+              "min": 1.0,
+              "median": 326.0,
+              "p90": 595.0,
+              "max": 716.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 532,
+            "patients_missing_measurement": 108,
+            "latest_age_minutes": {
+              "known_count": 532,
+              "min": 1.0,
+              "median": 326.0,
+              "p90": 595.0,
+              "max": 716.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 497,
+            "patients_missing_measurement": 143,
+            "latest_age_minutes": {
+              "known_count": 497,
+              "min": 1.0,
+              "median": 335.0,
+              "p90": 618.8000000000001,
+              "max": 720.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 538,
+            "patients_missing_measurement": 102,
+            "latest_age_minutes": {
+              "known_count": 538,
+              "min": 1.0,
+              "median": 331.0,
+              "p90": 615.0,
+              "max": 720.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 551,
+            "patients_missing_measurement": 89,
+            "latest_age_minutes": {
+              "known_count": 551,
+              "min": 1.0,
+              "median": 232.0,
+              "p90": 561.0,
+              "max": 720.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 467,
+            "patients_missing_measurement": 173,
+            "latest_age_minutes": {
+              "known_count": 467,
+              "min": 4.0,
+              "median": 282.0,
+              "p90": 606.0,
+              "max": 716.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 477,
+            "patients_missing_measurement": 163,
+            "latest_age_minutes": {
+              "known_count": 477,
+              "min": 4.0,
+              "median": 265.0,
+              "p90": 581.0,
+              "max": 716.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 525,
+            "patients_missing_measurement": 115,
+            "latest_age_minutes": {
+              "known_count": 525,
+              "min": 4.0,
+              "median": 330.0,
+              "p90": 598.0,
+              "max": 716.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 482,
+            "patients_missing_measurement": 158,
+            "latest_age_minutes": {
+              "known_count": 482,
+              "min": 1.0,
+              "median": 272.5,
+              "p90": 580.6000000000001,
+              "max": 716.0
+            }
+          }
+        }
+      },
+      "24h": {
+        "patients": 640,
+        "scoreable_patients": 638,
+        "no_supported_measurements": 2,
+        "patients_with_at_most_three_supported_parameters": 7,
+        "supported_parameter_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 16.0,
+          "p90": 16.0,
+          "max": 16.0
+        },
+        "temporal_observation_count": {
+          "known_count": 640,
+          "min": 0.0,
+          "median": 128.0,
+          "p90": 233.10000000000002,
+          "max": 362.0
+        },
+        "newest_measurement_age_minutes": {
+          "known_count": 638,
+          "min": 0.0,
+          "median": 27.0,
+          "p90": 57.0,
+          "max": 1174.0
+        },
+        "newest_bedside_measurement_age_minutes": {
+          "known_count": 625,
+          "min": 0.0,
+          "median": 27.0,
+          "p90": 56.0,
+          "max": 1174.0
+        },
+        "no_bedside_measurement": 15,
+        "newest_bedside_measurement_older_than_6h": 5,
+        "parameter_presence": {
+          "HR": {
+            "patients_with_measurement": 625,
+            "patients_missing_measurement": 15,
+            "latest_age_minutes": {
+              "known_count": 625,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 57.0,
+              "max": 1174.0
+            }
+          },
+          "GCS": {
+            "patients_with_measurement": 624,
+            "patients_missing_measurement": 16,
+            "latest_age_minutes": {
+              "known_count": 624,
+              "min": 0.0,
+              "median": 103.0,
+              "p90": 227.70000000000005,
+              "max": 1044.0
+            }
+          },
+          "Temp": {
+            "patients_with_measurement": 624,
+            "patients_missing_measurement": 16,
+            "latest_age_minutes": {
+              "known_count": 624,
+              "min": 0.0,
+              "median": 98.0,
+              "p90": 231.70000000000005,
+              "max": 1044.0
+            }
+          },
+          "MAP": {
+            "patients_with_measurement": 420,
+            "patients_missing_measurement": 220,
+            "latest_age_minutes": {
+              "known_count": 420,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 59.0,
+              "max": 1370.0
+            }
+          },
+          "SysABP": {
+            "patients_with_measurement": 420,
+            "patients_missing_measurement": 220,
+            "latest_age_minutes": {
+              "known_count": 420,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 59.0,
+              "max": 1370.0
+            }
+          },
+          "DiasABP": {
+            "patients_with_measurement": 420,
+            "patients_missing_measurement": 220,
+            "latest_age_minutes": {
+              "known_count": 420,
+              "min": 0.0,
+              "median": 29.0,
+              "p90": 59.0,
+              "max": 1370.0
+            }
+          },
+          "Glucose": {
+            "patients_with_measurement": 585,
+            "patients_missing_measurement": 55,
+            "latest_age_minutes": {
+              "known_count": 585,
+              "min": 2.0,
+              "median": 526.0,
+              "p90": 1065.8000000000002,
+              "max": 1422.0
+            }
+          },
+          "Creatinine": {
+            "patients_with_measurement": 620,
+            "patients_missing_measurement": 20,
+            "latest_age_minutes": {
+              "known_count": 620,
+              "min": 1.0,
+              "median": 505.5,
+              "p90": 1053.2,
+              "max": 1424.0
+            }
+          },
+          "BUN": {
+            "patients_with_measurement": 620,
+            "patients_missing_measurement": 20,
+            "latest_age_minutes": {
+              "known_count": 620,
+              "min": 1.0,
+              "median": 506.5,
+              "p90": 1055.0,
+              "max": 1424.0
+            }
+          },
+          "WBC": {
+            "patients_with_measurement": 616,
+            "patients_missing_measurement": 24,
+            "latest_age_minutes": {
+              "known_count": 616,
+              "min": 2.0,
+              "median": 557.5,
+              "p90": 1106.0,
+              "max": 1424.0
+            }
+          },
+          "Platelets": {
+            "patients_with_measurement": 619,
+            "patients_missing_measurement": 21,
+            "latest_age_minutes": {
+              "known_count": 619,
+              "min": 1.0,
+              "median": 542.0,
+              "p90": 1072.4,
+              "max": 1424.0
+            }
+          },
+          "HCT": {
+            "patients_with_measurement": 622,
+            "patients_missing_measurement": 18,
+            "latest_age_minutes": {
+              "known_count": 622,
+              "min": 1.0,
+              "median": 439.0,
+              "p90": 1044.3999999999999,
+              "max": 1424.0
+            }
+          },
+          "Na": {
+            "patients_with_measurement": 609,
+            "patients_missing_measurement": 31,
+            "latest_age_minutes": {
+              "known_count": 609,
+              "min": 2.0,
+              "median": 500.0,
+              "p90": 1055.4,
+              "max": 1410.0
+            }
+          },
+          "K": {
+            "patients_with_measurement": 593,
+            "patients_missing_measurement": 47,
+            "latest_age_minutes": {
+              "known_count": 593,
+              "min": 1.0,
+              "median": 484.0,
+              "p90": 1019.6000000000001,
+              "max": 1410.0
+            }
+          },
+          "HCO3": {
+            "patients_with_measurement": 614,
+            "patients_missing_measurement": 26,
+            "latest_age_minutes": {
+              "known_count": 614,
+              "min": 2.0,
+              "median": 508.5,
+              "p90": 1060.4,
+              "max": 1410.0
+            }
+          },
+          "Mg": {
+            "patients_with_measurement": 593,
+            "patients_missing_measurement": 47,
+            "latest_age_minutes": {
+              "known_count": 593,
+              "min": 3.0,
+              "median": 496.0,
+              "p90": 1052.4,
+              "max": 1410.0
+            }
+          }
+        }
+      }
+    }
+  },
+  "limits": [
+    "Coverage is descriptive, not proof of clinical sufficiency.",
+    "Development-holdout coverage is data-quality reporting only, never performance evaluation or model selection.",
+    "No exact ICU exit/death times exist here; checkpoint clinical eligibility remains unresolved.",
+    "An observation file ending early does not prove discharge or death."
+  ]
+}

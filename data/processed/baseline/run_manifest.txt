@@ -1,0 +1,56 @@
+Silent Window -- V1 Baseline Run Manifest
+============================================
+
+GIT STATE
+  Commit before Step 6 : 568687d (analysis: add ICU exploratory data analysis)
+  Step 6 code          : not yet committed (pending hardening review)
+
+ENVIRONMENT
+  Python               : 3.11.9
+  scikit-learn          : 1.9.1
+  pandas               : 3.0.6
+  numpy                : 2.4.6
+  matplotlib            : 3.11.2
+  joblib                : 1.6.0
+
+DATASET
+  Patient count        : 3,200
+  Outcome records      : 3,200
+  Positive class       : 443 (13.84%)
+  Observation window   : 0-48 hours (0-2880 minutes)
+  Parameters           : 42 total
+
+SPLIT
+  random_state         : 42
+  test_size            : 0.20
+  train                : 2,560 patients (354 positive)
+  test (dev holdout)   : 640 patients (89 positive)
+  stratified           : yes, by In-hospital_death
+
+MODEL
+  Type                 : LogisticRegression (class_weight="balanced")
+  Solver               : lbfgs
+  max_iter             : 1000
+  Cutoffs              : 6h (360 min), 12h (720 min), 24h (1440 min)
+
+FEATURES
+  Total (before OHE)   : 116
+  Static               : 4 (Age, Gender, Weight, ICUType)
+  Temporal parameters  : 16
+  Stats per parameter  : 7 (latest, mean, min, max, std, count, time_since_last)
+
+METRICS FILE
+  baseline_metrics.csv
+
+ARTIFACTS
+  logistic_6h.joblib   (gitignored)
+  logistic_12h.joblib  (gitignored)
+  logistic_24h.joblib  (gitignored)
+
+NOTES
+  - Model .joblib artifacts are excluded from Git via .gitignore (*.joblib).
+  - The 640-patient holdout has been viewed and is classified as
+    DEVELOPMENT HOLDOUT, not untouched final evaluation.
+  - See evaluation_protocol.txt for governance rules.
+  - Height excluded (47% missing, suspicious extremes).
+  - Urine excluded (duplicate aggregation semantics unresolved).

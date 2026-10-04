@@ -1,0 +1,88 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# virtual environments
+.venv
+venv
+.setup-check-venv/
+
+# .env
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# frontend
+build/
+dist/
+
+# IDE temporary files
+.vscode/
+.idea/
+
+# OS temporary files
+.DS_Store
+Thumbs.db
+
+# Jupyter checkpoint files
+.ipynb_checkpoints/
+
+# ML model artifacts
+*.pkl
+*.joblib
+!ml/artifacts/rf_v2_6h.joblib
+!ml/artifacts/rf_v2_12h.joblib
+!ml/artifacts/rf_v2_24h.joblib
+!ml/artifacts/logistic_6h.joblib
+!ml/artifacts/logistic_12h.joblib
+!ml/artifacts/logistic_24h.joblib
+!ml/artifacts/calibrated_rf_v3/rf_v3_*.joblib
+.calibrated_rf_v3.build-*/
+*.onnx
+
+# Runtime-generated complete patient assessment index
+/data/processed/runtime/patient_assessment_index.json
+/data/processed/runtime/.patient_assessment_index.json.*.tmp
+/data/processed/runtime/patient_assessment_index_calibrated.json
+/data/processed/runtime/.patient_assessment_index_calibrated.json.*.tmp
+
+# Reproducible patient-level coverage audit; track its aggregate summary only.
+/data/processed/data_quality/checkpoint_coverage.csv
+
+# Local accounts, sessions and staff notes are never part of the portfolio repo.
+/data/processed/runtime/*.sqlite3*
+/data/processed/runtime/.auth-browser-test/
+/data/processed/runtime/mysql/
+/data/processed/runtime/patient_assessment_index_expanded.json
+/data/processed/runtime/.patient_assessment_index_expanded.json.*.tmp
+!ml/artifacts/expanded_rf_v4/rf_v4_*.joblib
+.expanded_rf_v4.build-*/
+
+# Private configuration, database dumps and signing credentials
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.sql
+*.sql.gz
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.pypirc
+credentials.json
+service-account*.json
+*.log
+*.tmp
+*.bak
+
+# All runtime data is local; fresh installations regenerate it.
+/data/processed/runtime/
+/data/raw/*.zip
+.release-check/

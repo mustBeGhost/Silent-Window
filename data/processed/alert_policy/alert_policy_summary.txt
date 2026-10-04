@@ -1,0 +1,61 @@
+Silent Window -- Alert Policy Summary
+================================================
+
+SAFETY AND SCOPE
+  Thresholds were derived only from OOF predictions for the 2,560
+  development patients.
+  The 640-patient held-out cohort was excluded and final held-out
+  evaluation has NOT been performed.
+  No identifying patient-level predictions were saved.
+  This policy is NOT clinically validated.
+  It is intended for a hackathon decision-support demonstration.
+
+THRESHOLD GRID
+  RF V2 OOF probabilities at 6h, 12h, and 24h.
+  Fixed thresholds: 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80
+
+RF 12H THRESHOLD TRADEOFFS
+  thr   TP    FP    TN   FN    prec     recall   spec     FPR      F1
+  0.20  349  1774   432    5  0.1644  0.9859  0.1958  0.8042  0.2818
+  0.25  341  1528   678   13  0.1825  0.9633  0.3073  0.6927  0.3068
+  0.30  315  1286   920   39  0.1968  0.8898  0.4170  0.5830  0.3223
+  0.35  278  1012  1194   76  0.2155  0.7853  0.5413  0.4587  0.3382
+  0.40  249   774  1432  105  0.2434  0.7034  0.6491  0.3509  0.3617
+  0.45  212   563  1643  142  0.2735  0.5989  0.7448  0.2552  0.3756
+  0.50  175   390  1816  179  0.3097  0.4944  0.8232  0.1768  0.3808
+  0.55  130   231  1975  224  0.3601  0.3672  0.8953  0.1047  0.3636
+  0.60   86   120  2086  268  0.4175  0.2429  0.9456  0.0544  0.3071
+  0.65   46    53  2153  308  0.4646  0.1299  0.9760  0.0240  0.2031
+  0.70   15    18  2188  339  0.4545  0.0424  0.9918  0.0082  0.0775
+  0.75    2     3  2203  352  0.4000  0.0056  0.9986  0.0014  0.0111
+  0.80    0     1  2205  354  0.0000  0.0000  0.9995  0.0005  0.0000
+
+ENGINEERING OPERATING-POINT RULES (RF 12H OOF ONLY)
+  HIGH_SENSITIVITY: lowest FPR among grid points with recall >= 0.70;
+    fallback is maximum recall then lowest FPR.
+  BALANCED: maximum F1, then lowest FPR.
+  LOWER_FALSE_ALARM: lowest FPR among grid points with recall >= 0.30;
+    fallback is maximum recall then lowest FPR.
+  Remaining ties prefer higher precision, then higher threshold.
+
+SELECTED OPERATING POINTS
+  HIGH_SENSITIVITY: threshold=0.40, precision=0.2434, recall=0.7034, specificity=0.6491, FPR=0.3509, F1=0.3617
+  BALANCED: threshold=0.50, precision=0.3097, recall=0.4944, specificity=0.8232, FPR=0.1768, F1=0.3808
+  LOWER_FALSE_ALARM: threshold=0.55, precision=0.3601, recall=0.3672, specificity=0.8953, FPR=0.1047, F1=0.3636
+
+RISK LEVEL MAPPING
+  LOW: probability < 0.40
+  MEDIUM: 0.40 <= probability < 0.55
+  HIGH: probability >= 0.55
+  The BALANCED point is retained as a comparison/default single-score
+  engineering operating point; persistence governs dashboard alerts.
+
+PERSISTENCE / WORSENING ALERT POLICY
+  LOW now -> NO_ALERT.
+  One isolated MEDIUM or HIGH checkpoint -> WATCH.
+  Two consecutive MEDIUM-or-higher checkpoints -> HIGH_ALERT.
+  This covers persistent elevated risk and worsening MEDIUM -> HIGH.
+  A single HIGH spike surrounded by LOW never produces HIGH_ALERT.
+  Each state uses only the history available at that checkpoint.
+  Supported checkpoints are 6h, 12h, and 24h; this is not continuous
+  hourly prediction.

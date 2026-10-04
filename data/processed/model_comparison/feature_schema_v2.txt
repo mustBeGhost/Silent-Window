@@ -1,0 +1,10 @@
+Silent Window V2 Feature Schema
+========================================
+Total features (before one-hot): 132
+
+V2 = V1 + slope per temporal parameter
+
+NEW in V2 (per temporal parameter):
+  {param}_slope  (least-squares, >=2 obs required)
+
+All V1 features retained.

@@ -1,0 +1,1575 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_NESTED_DEVELOPMENT_ONLY_NOT_DEPLOYED",
+  "completed_at_utc": "2026-10-03T12:10:04.295748+00:00",
+  "target": "In-hospital_death",
+  "coverage_policy": "at_least_one_supported_temporal_observation_v1",
+  "clinical_checkpoint_eligibility": "UNKNOWN_FROM_AVAILABLE_FIELDS",
+  "runtime_versions": {
+    "python": "3.11.9",
+    "sklearn": "1.9.1",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6"
+  },
+  "outer_cv": {
+    "n_splits": 5,
+    "random_state": 42,
+    "stratified": true,
+    "shuffle": true,
+    "same_patient_fold_at_every_checkpoint": true,
+    "folds_assigned_before_coverage_filter": true
+  },
+  "threshold_selection": {
+    "primary_checkpoint": "12h",
+    "shared_across_checkpoints": true,
+    "inner_cv_splits": 3,
+    "random_state": 42,
+    "grid": [
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.57,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.69,
+      0.7,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8,
+      0.81,
+      0.82,
+      0.83,
+      0.84,
+      0.85,
+      0.86,
+      0.87,
+      0.88,
+      0.89,
+      0.9,
+      0.91,
+      0.92,
+      0.93,
+      0.94,
+      0.95,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      1.0
+    ],
+    "engineering_recall_floors": {
+      "medium": 0.7,
+      "high": 0.3
+    },
+    "objective": "minimum FPR meeting recall floor; precision then higher threshold break ties",
+    "fallback": "maximum recall when a floor is infeasible; medium < high always enforced",
+    "validation_labels_used_for_selection": false,
+    "inner_metrics_are_training_selection_diagnostics_not_validation_performance": true
+  },
+  "calibration": {
+    "method": "sigmoid",
+    "inner_cv_splits": 3,
+    "ensemble": false,
+    "fitted_inside_each_threshold_training_fold_and_outer_training_fold": true
+  },
+  "paired_raw_reference": "final base forest from each ensemble=False calibrated fit",
+  "alert_policy": "LOW: NO_ALERT; isolated MEDIUM/HIGH: WATCH; consecutive MEDIUM/HIGH: HIGH_ALERT; missing breaks persistence",
+  "high_boundary_effect": "Changes HIGH risk category; does not change WATCH/HIGH_ALERT persistence",
+  "development_cohort_sha256": "5d33f2617edf91f752ca56f9f49cbfc48b8899c8457f921e5b0fe2e64e94a864",
+  "separated_cohort_sha256": "36dc8664dcfd97310a758d62064b6526e068825745918cfb36dd2bf6ddb239b1",
+  "separated_patients_evaluated": 0,
+  "raw_development_patient_files_sha256": "03bbc4838130464c9a87d002e9a713fc40308450d58d49f6c89547cccd2f471e",
+  "outcomes_sha256": "3b4aea44818aae82916add5f941dd481c5774f7491a3600eb89c37050d02dff3",
+  "split_sha256": "1c31c3e31a080d3665a1f93270087ceadcaabc41eaaecc81751246cb04286a32",
+  "production_artifact_sha256": {
+    "manifest": "17ef60d2b3dba6e1e3854bf74d4664e27e4a6c5adea4088e505f30ad9a8d0614",
+    "6h": "9b48ea15d56a36a506383fda9576aa8cec11ddaa9a7868729c11314647a0b4ee",
+    "12h": "2004a9856db0e1ec41332fa34873a819509b9fd5d1c6935706bb165d8de29ae4",
+    "24h": "2a2476634b883add4cd9e8bcedbf0614ba280258c43733268c3a3dda000e4d88"
+  },
+  "source_sha256": {
+    "ml/alert_evaluation.py": "464b684a799940dd3f703f192121a4a102ab5673c2e66c98ff83c007c4ca3178",
+    "ml/alert_policy.py": "6ce0280cc15fa73cf839c86deb528af89ec46eb844a5ac7963dca2c28604ae53",
+    "ml/coverage.py": "7d155de8ab4e3f2b394805661672bdfe4e8800b218906fb7598b2744d7f5e4ec",
+    "ml/evaluation.py": "433c396f915e5845637ad47d5f19825dcb93ed28fbc655c8b2820c39c6098b09",
+    "ml/features.py": "6cee22eb3ebaf44e2c3af2619d794dbd79a6e40fcd2cf44893d2a9603811be43",
+    "ml/preprocessing.py": "3f9bc9bbf882514ebf8610022f3c43d64d13f9c81a1fb16123fcc909bc15d8b0",
+    "ml/threshold_analysis.py": "ca100a4346940b201c9ca4b0dbad4e57506e5c88ae1b85a185dead0e911700c8",
+    "ml/train_models.py": "ee5870f182fff43953960a69ab1c15837a9dc3e8be5061fe7c4f8a0f4bb4a313",
+    "ml/data_loader.py": "5dc3679197702451169f04540167d40a6574294aa51aff6b87a6bc6e0fe264d9",
+    "scripts/evaluate_nested_alerts.py": "40e01bef3752e90a2276a0434c31e5147b1edd5f2c4cd77d2872552157c75680",
+    "scripts/evaluate_scoreable_models.py": "c2d90fbce286ecd09f6077c8994c98b8c45d86481ff757f6074769c15ff19794",
+    "scripts/train_rf_v2_artifacts.py": "ad4aef4b32ca7e8679d18ab1396a852b35c7a830b77dabed752b519373781ee7"
+  },
+  "development_patients": 2560,
+  "death_labels": 354,
+  "fold_results": [
+    {
+      "fold": 1,
+      "training_patients": 2048,
+      "validation_patients": 512,
+      "selected_boundaries": {
+        "raw": {
+          "medium": 0.41,
+          "high": 0.56,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.41,
+              "tp": 199.0,
+              "fp": 603.0,
+              "tn": 1155.0,
+              "fn": 85.0,
+              "precision": 0.24812967581047382,
+              "recall": 0.7007042253521126,
+              "sensitivity": 0.7007042253521126,
+              "specificity": 0.6569965870307167,
+              "false_positive_rate": 0.3430034129692833,
+              "f1": 0.3664825046040515
+            },
+            "high": {
+              "threshold": 0.56,
+              "tp": 93.0,
+              "fp": 176.0,
+              "tn": 1582.0,
+              "fn": 191.0,
+              "precision": 0.34572490706319703,
+              "recall": 0.3274647887323944,
+              "sensitivity": 0.3274647887323944,
+              "specificity": 0.8998862343572241,
+              "false_positive_rate": 0.10011376564277588,
+              "f1": 0.33634719710669075
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        },
+        "calibrated": {
+          "medium": 0.13,
+          "high": 0.26,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.13,
+              "tp": 208.0,
+              "fp": 655.0,
+              "tn": 1103.0,
+              "fn": 76.0,
+              "precision": 0.2410196987253766,
+              "recall": 0.7323943661971831,
+              "sensitivity": 0.7323943661971831,
+              "specificity": 0.6274175199089875,
+              "false_positive_rate": 0.3725824800910125,
+              "f1": 0.3626852659110723
+            },
+            "high": {
+              "threshold": 0.26,
+              "tp": 91.0,
+              "fp": 182.0,
+              "tn": 1576.0,
+              "fn": 193.0,
+              "precision": 0.3333333333333333,
+              "recall": 0.3204225352112676,
+              "sensitivity": 0.3204225352112676,
+              "specificity": 0.8964732650739476,
+              "false_positive_rate": 0.10352673492605233,
+              "f1": 0.3267504488330341
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        }
+      }
+    },
+    {
+      "fold": 2,
+      "training_patients": 2048,
+      "validation_patients": 512,
+      "selected_boundaries": {
+        "raw": {
+          "medium": 0.39,
+          "high": 0.57,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.39,
+              "tp": 201.0,
+              "fp": 663.0,
+              "tn": 1096.0,
+              "fn": 82.0,
+              "precision": 0.2326388888888889,
+              "recall": 0.7102473498233216,
+              "sensitivity": 0.7102473498233216,
+              "specificity": 0.6230812961910176,
+              "false_positive_rate": 0.3769187038089824,
+              "f1": 0.35047951176983433
+            },
+            "high": {
+              "threshold": 0.57,
+              "tp": 89.0,
+              "fp": 167.0,
+              "tn": 1592.0,
+              "fn": 194.0,
+              "precision": 0.34765625,
+              "recall": 0.31448763250883394,
+              "sensitivity": 0.31448763250883394,
+              "specificity": 0.9050596930073905,
+              "false_positive_rate": 0.09494030699260944,
+              "f1": 0.3302411873840445
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        },
+        "calibrated": {
+          "medium": 0.12,
+          "high": 0.27,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.12,
+              "tp": 205.0,
+              "fp": 687.0,
+              "tn": 1072.0,
+              "fn": 78.0,
+              "precision": 0.22982062780269058,
+              "recall": 0.7243816254416962,
+              "sensitivity": 0.7243816254416962,
+              "specificity": 0.6094371802160319,
+              "false_positive_rate": 0.3905628197839682,
+              "f1": 0.3489361702127659
+            },
+            "high": {
+              "threshold": 0.27,
+              "tp": 95.0,
+              "fp": 186.0,
+              "tn": 1573.0,
+              "fn": 188.0,
+              "precision": 0.33807829181494664,
+              "recall": 0.33568904593639576,
+              "sensitivity": 0.33568904593639576,
+              "specificity": 0.8942581011938602,
+              "false_positive_rate": 0.10574189880613985,
+              "f1": 0.33687943262411346
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        }
+      }
+    },
+    {
+      "fold": 3,
+      "training_patients": 2048,
+      "validation_patients": 512,
+      "selected_boundaries": {
+        "raw": {
+          "medium": 0.39,
+          "high": 0.57,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.39,
+              "tp": 205.0,
+              "fp": 674.0,
+              "tn": 1086.0,
+              "fn": 78.0,
+              "precision": 0.23321956769055746,
+              "recall": 0.7243816254416962,
+              "sensitivity": 0.7243816254416962,
+              "specificity": 0.6170454545454546,
+              "false_positive_rate": 0.38295454545454544,
+              "f1": 0.3528399311531841
+            },
+            "high": {
+              "threshold": 0.57,
+              "tp": 88.0,
+              "fp": 152.0,
+              "tn": 1608.0,
+              "fn": 195.0,
+              "precision": 0.36666666666666664,
+              "recall": 0.31095406360424027,
+              "sensitivity": 0.31095406360424027,
+              "specificity": 0.9136363636363637,
+              "false_positive_rate": 0.08636363636363636,
+              "f1": 0.3365200764818355
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        },
+        "calibrated": {
+          "medium": 0.13,
+          "high": 0.29,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.13,
+              "tp": 199.0,
+              "fp": 640.0,
+              "tn": 1120.0,
+              "fn": 84.0,
+              "precision": 0.23718712753277713,
+              "recall": 0.7031802120141343,
+              "sensitivity": 0.7031802120141343,
+              "specificity": 0.6363636363636364,
+              "false_positive_rate": 0.36363636363636365,
+              "f1": 0.35472370766488415
+            },
+            "high": {
+              "threshold": 0.29,
+              "tp": 85.0,
+              "fp": 141.0,
+              "tn": 1619.0,
+              "fn": 198.0,
+              "precision": 0.37610619469026546,
+              "recall": 0.3003533568904594,
+              "sensitivity": 0.3003533568904594,
+              "specificity": 0.9198863636363637,
+              "false_positive_rate": 0.08011363636363636,
+              "f1": 0.3339882121807466
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        }
+      }
+    },
+    {
+      "fold": 4,
+      "training_patients": 2048,
+      "validation_patients": 512,
+      "selected_boundaries": {
+        "raw": {
+          "medium": 0.39,
+          "high": 0.56,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.39,
+              "tp": 199.0,
+              "fp": 664.0,
+              "tn": 1098.0,
+              "fn": 84.0,
+              "precision": 0.23059096176129779,
+              "recall": 0.7031802120141343,
+              "sensitivity": 0.7031802120141343,
+              "specificity": 0.623155505107832,
+              "false_positive_rate": 0.376844494892168,
+              "f1": 0.3472949389179755
+            },
+            "high": {
+              "threshold": 0.56,
+              "tp": 86.0,
+              "fp": 137.0,
+              "tn": 1625.0,
+              "fn": 197.0,
+              "precision": 0.38565022421524664,
+              "recall": 0.303886925795053,
+              "sensitivity": 0.303886925795053,
+              "specificity": 0.9222474460839954,
+              "false_positive_rate": 0.07775255391600454,
+              "f1": 0.33992094861660077
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        },
+        "calibrated": {
+          "medium": 0.12,
+          "high": 0.27,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.12,
+              "tp": 204.0,
+              "fp": 691.0,
+              "tn": 1071.0,
+              "fn": 79.0,
+              "precision": 0.22793296089385476,
+              "recall": 0.7208480565371025,
+              "sensitivity": 0.7208480565371025,
+              "specificity": 0.6078320090805902,
+              "false_positive_rate": 0.39216799091940974,
+              "f1": 0.34634974533106966
+            },
+            "high": {
+              "threshold": 0.27,
+              "tp": 87.0,
+              "fp": 150.0,
+              "tn": 1612.0,
+              "fn": 196.0,
+              "precision": 0.3670886075949367,
+              "recall": 0.30742049469964666,
+              "sensitivity": 0.30742049469964666,
+              "specificity": 0.9148694665153235,
+              "false_positive_rate": 0.0851305334846765,
+              "f1": 0.33461538461538465
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        }
+      }
+    },
+    {
+      "fold": 5,
+      "training_patients": 2048,
+      "validation_patients": 512,
+      "selected_boundaries": {
+        "raw": {
+          "medium": 0.39,
+          "high": 0.57,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.39,
+              "tp": 205.0,
+              "fp": 642.0,
+              "tn": 1119.0,
+              "fn": 78.0,
+              "precision": 0.24203069657615112,
+              "recall": 0.7243816254416962,
+              "sensitivity": 0.7243816254416962,
+              "specificity": 0.6354344122657581,
+              "false_positive_rate": 0.3645655877342419,
+              "f1": 0.3628318584070796
+            },
+            "high": {
+              "threshold": 0.57,
+              "tp": 86.0,
+              "fp": 138.0,
+              "tn": 1623.0,
+              "fn": 197.0,
+              "precision": 0.38392857142857145,
+              "recall": 0.303886925795053,
+              "sensitivity": 0.303886925795053,
+              "specificity": 0.9216354344122658,
+              "false_positive_rate": 0.07836456558773425,
+              "f1": 0.33925049309664695
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        },
+        "calibrated": {
+          "medium": 0.13,
+          "high": 0.28,
+          "selection_population": "INNER_OOF_SCOREABLE_12H_TRAINING_PATIENTS_ONLY",
+          "inner_training_metrics": {
+            "medium": {
+              "threshold": 0.13,
+              "tp": 199.0,
+              "fp": 619.0,
+              "tn": 1142.0,
+              "fn": 84.0,
+              "precision": 0.24327628361858192,
+              "recall": 0.7031802120141343,
+              "sensitivity": 0.7031802120141343,
+              "specificity": 0.6484951731970471,
+              "false_positive_rate": 0.35150482680295286,
+              "f1": 0.3614895549500454
+            },
+            "high": {
+              "threshold": 0.28,
+              "tp": 86.0,
+              "fp": 140.0,
+              "tn": 1621.0,
+              "fn": 197.0,
+              "precision": 0.3805309734513274,
+              "recall": 0.303886925795053,
+              "sensitivity": 0.303886925795053,
+              "specificity": 0.9204997160704146,
+              "false_positive_rate": 0.07950028392958547,
+              "f1": 0.3379174852652259
+            }
+          },
+          "recall_floor_met": {
+            "medium": true,
+            "high": true
+          }
+        }
+      }
+    }
+  ],
+  "results": {
+    "raw_historical": {
+      "checkpoints": {
+        "6h": {
+          "state_counts": {
+            "NO_ALERT": 1382,
+            "WATCH": 1124,
+            "HIGH_ALERT": 0,
+            "NOT_ASSESSED": 54
+          },
+          "any_warning": {
+            "tp": 255,
+            "fp": 869,
+            "tn": 1290,
+            "fn": 92,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7348703170028819,
+            "false_positive_rate_in_assessed_population": 0.40250115794349234,
+            "precision": 0.22686832740213522,
+            "fraction_of_all_death_labels_detected": 0.7203389830508474
+          },
+          "persistent_high_alert": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          },
+          "high_risk_category": {
+            "tp": 104,
+            "fp": 272,
+            "tn": 1887,
+            "fn": 243,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.29971181556195964,
+            "false_positive_rate_in_assessed_population": 0.12598425196850394,
+            "precision": 0.2765957446808511,
+            "fraction_of_all_death_labels_detected": 0.2937853107344633
+          }
+        },
+        "12h": {
+          "state_counts": {
+            "NO_ALERT": 1533,
+            "WATCH": 175,
+            "HIGH_ALERT": 846,
+            "NOT_ASSESSED": 6
+          },
+          "any_warning": {
+            "tp": 246,
+            "fp": 775,
+            "tn": 1425,
+            "fn": 108,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6949152542372882,
+            "false_positive_rate_in_assessed_population": 0.3522727272727273,
+            "precision": 0.24094025465230168,
+            "fraction_of_all_death_labels_detected": 0.6949152542372882
+          },
+          "persistent_high_alert": {
+            "tp": 215,
+            "fp": 631,
+            "tn": 1569,
+            "fn": 139,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6073446327683616,
+            "false_positive_rate_in_assessed_population": 0.2868181818181818,
+            "precision": 0.2541371158392435,
+            "fraction_of_all_death_labels_detected": 0.6073446327683616
+          },
+          "high_risk_category": {
+            "tp": 129,
+            "fp": 236,
+            "tn": 1964,
+            "fn": 225,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3644067796610169,
+            "false_positive_rate_in_assessed_population": 0.10727272727272727,
+            "precision": 0.35342465753424657,
+            "fraction_of_all_death_labels_detected": 0.3644067796610169
+          }
+        },
+        "24h": {
+          "state_counts": {
+            "NO_ALERT": 1544,
+            "WATCH": 198,
+            "HIGH_ALERT": 817,
+            "NOT_ASSESSED": 1
+          },
+          "any_warning": {
+            "tp": 270,
+            "fp": 745,
+            "tn": 1460,
+            "fn": 84,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.7627118644067796,
+            "false_positive_rate_in_assessed_population": 0.3378684807256236,
+            "precision": 0.2660098522167488,
+            "fraction_of_all_death_labels_detected": 0.7627118644067796
+          },
+          "persistent_high_alert": {
+            "tp": 233,
+            "fp": 584,
+            "tn": 1621,
+            "fn": 121,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6581920903954802,
+            "false_positive_rate_in_assessed_population": 0.26485260770975055,
+            "precision": 0.28518971848225216,
+            "fraction_of_all_death_labels_detected": 0.6581920903954802
+          },
+          "high_risk_category": {
+            "tp": 139,
+            "fp": 235,
+            "tn": 1970,
+            "fn": 215,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3926553672316384,
+            "false_positive_rate_in_assessed_population": 0.10657596371882086,
+            "precision": 0.3716577540106952,
+            "fraction_of_all_death_labels_detected": 0.3926553672316384
+          }
+        }
+      },
+      "cumulative_through_checkpoint": {
+        "6h": {
+          "any_warning_seen": {
+            "tp": 255,
+            "fp": 869,
+            "tn": 1290,
+            "fn": 92,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7348703170028819,
+            "false_positive_rate_in_assessed_population": 0.40250115794349234,
+            "precision": 0.22686832740213522,
+            "fraction_of_all_death_labels_detected": 0.7203389830508474
+          },
+          "persistent_high_alert_seen": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          }
+        },
+        "12h": {
+          "any_warning_seen": {
+            "tp": 286,
+            "fp": 1013,
+            "tn": 1187,
+            "fn": 68,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.807909604519774,
+            "false_positive_rate_in_assessed_population": 0.46045454545454545,
+            "precision": 0.2201693610469592,
+            "fraction_of_all_death_labels_detected": 0.807909604519774
+          },
+          "persistent_high_alert_seen": {
+            "tp": 215,
+            "fp": 631,
+            "tn": 1569,
+            "fn": 139,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6073446327683616,
+            "false_positive_rate_in_assessed_population": 0.2868181818181818,
+            "precision": 0.2541371158392435,
+            "fraction_of_all_death_labels_detected": 0.6073446327683616
+          }
+        },
+        "24h": {
+          "any_warning_seen": {
+            "tp": 306,
+            "fp": 1110,
+            "tn": 1095,
+            "fn": 48,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.864406779661017,
+            "false_positive_rate_in_assessed_population": 0.5034013605442177,
+            "precision": 0.21610169491525424,
+            "fraction_of_all_death_labels_detected": 0.864406779661017
+          },
+          "persistent_high_alert_seen": {
+            "tp": 244,
+            "fp": 721,
+            "tn": 1484,
+            "fn": 110,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6892655367231638,
+            "false_positive_rate_in_assessed_population": 0.326984126984127,
+            "precision": 0.2528497409326425,
+            "fraction_of_all_death_labels_detected": 0.6892655367231638
+          }
+        }
+      },
+      "first_warning_checkpoint_counts": {
+        "6h": {
+          "patients": 1124,
+          "death_labels": 255
+        },
+        "12h": {
+          "patients": 175,
+          "death_labels": 31
+        },
+        "24h": {
+          "patients": 117,
+          "death_labels": 20
+        }
+      }
+    },
+    "calibrated_historical": {
+      "checkpoints": {
+        "6h": {
+          "state_counts": {
+            "NO_ALERT": 2473,
+            "WATCH": 33,
+            "HIGH_ALERT": 0,
+            "NOT_ASSESSED": 54
+          },
+          "any_warning": {
+            "tp": 12,
+            "fp": 21,
+            "tn": 2138,
+            "fn": 335,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0345821325648415,
+            "false_positive_rate_in_assessed_population": 0.009726725335803613,
+            "precision": 0.36363636363636365,
+            "fraction_of_all_death_labels_detected": 0.03389830508474576
+          },
+          "persistent_high_alert": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          },
+          "high_risk_category": {
+            "tp": 1,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 346,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.002881844380403458,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": 1.0,
+            "fraction_of_all_death_labels_detected": 0.002824858757062147
+          }
+        },
+        "12h": {
+          "state_counts": {
+            "NO_ALERT": 2447,
+            "WATCH": 83,
+            "HIGH_ALERT": 24,
+            "NOT_ASSESSED": 6
+          },
+          "any_warning": {
+            "tp": 46,
+            "fp": 61,
+            "tn": 2139,
+            "fn": 308,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.12994350282485875,
+            "false_positive_rate_in_assessed_population": 0.02772727272727273,
+            "precision": 0.42990654205607476,
+            "fraction_of_all_death_labels_detected": 0.12994350282485875
+          },
+          "persistent_high_alert": {
+            "tp": 10,
+            "fp": 14,
+            "tn": 2186,
+            "fn": 344,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.02824858757062147,
+            "false_positive_rate_in_assessed_population": 0.006363636363636364,
+            "precision": 0.4166666666666667,
+            "fraction_of_all_death_labels_detected": 0.02824858757062147
+          },
+          "high_risk_category": {
+            "tp": 4,
+            "fp": 3,
+            "tn": 2197,
+            "fn": 350,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.011299435028248588,
+            "false_positive_rate_in_assessed_population": 0.0013636363636363637,
+            "precision": 0.5714285714285714,
+            "fraction_of_all_death_labels_detected": 0.011299435028248588
+          }
+        },
+        "24h": {
+          "state_counts": {
+            "NO_ALERT": 2418,
+            "WATCH": 82,
+            "HIGH_ALERT": 59,
+            "NOT_ASSESSED": 1
+          },
+          "any_warning": {
+            "tp": 56,
+            "fp": 85,
+            "tn": 2120,
+            "fn": 298,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.15819209039548024,
+            "false_positive_rate_in_assessed_population": 0.03854875283446712,
+            "precision": 0.3971631205673759,
+            "fraction_of_all_death_labels_detected": 0.15819209039548024
+          },
+          "persistent_high_alert": {
+            "tp": 26,
+            "fp": 33,
+            "tn": 2172,
+            "fn": 328,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.07344632768361582,
+            "false_positive_rate_in_assessed_population": 0.014965986394557823,
+            "precision": 0.4406779661016949,
+            "fraction_of_all_death_labels_detected": 0.07344632768361582
+          },
+          "high_risk_category": {
+            "tp": 10,
+            "fp": 10,
+            "tn": 2195,
+            "fn": 344,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.02824858757062147,
+            "false_positive_rate_in_assessed_population": 0.0045351473922902496,
+            "precision": 0.5,
+            "fraction_of_all_death_labels_detected": 0.02824858757062147
+          }
+        }
+      },
+      "cumulative_through_checkpoint": {
+        "6h": {
+          "any_warning_seen": {
+            "tp": 12,
+            "fp": 21,
+            "tn": 2138,
+            "fn": 335,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0345821325648415,
+            "false_positive_rate_in_assessed_population": 0.009726725335803613,
+            "precision": 0.36363636363636365,
+            "fraction_of_all_death_labels_detected": 0.03389830508474576
+          },
+          "persistent_high_alert_seen": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          }
+        },
+        "12h": {
+          "any_warning_seen": {
+            "tp": 48,
+            "fp": 68,
+            "tn": 2132,
+            "fn": 306,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.13559322033898305,
+            "false_positive_rate_in_assessed_population": 0.03090909090909091,
+            "precision": 0.41379310344827586,
+            "fraction_of_all_death_labels_detected": 0.13559322033898305
+          },
+          "persistent_high_alert_seen": {
+            "tp": 10,
+            "fp": 14,
+            "tn": 2186,
+            "fn": 344,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.02824858757062147,
+            "false_positive_rate_in_assessed_population": 0.006363636363636364,
+            "precision": 0.4166666666666667,
+            "fraction_of_all_death_labels_detected": 0.02824858757062147
+          }
+        },
+        "24h": {
+          "any_warning_seen": {
+            "tp": 77,
+            "fp": 119,
+            "tn": 2086,
+            "fn": 277,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.2175141242937853,
+            "false_positive_rate_in_assessed_population": 0.05396825396825397,
+            "precision": 0.39285714285714285,
+            "fraction_of_all_death_labels_detected": 0.2175141242937853
+          },
+          "persistent_high_alert_seen": {
+            "tp": 28,
+            "fp": 38,
+            "tn": 2167,
+            "fn": 326,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.07909604519774012,
+            "false_positive_rate_in_assessed_population": 0.017233560090702947,
+            "precision": 0.42424242424242425,
+            "fraction_of_all_death_labels_detected": 0.07909604519774012
+          }
+        }
+      },
+      "first_warning_checkpoint_counts": {
+        "6h": {
+          "patients": 33,
+          "death_labels": 12
+        },
+        "12h": {
+          "patients": 83,
+          "death_labels": 36
+        },
+        "24h": {
+          "patients": 80,
+          "death_labels": 29
+        }
+      }
+    },
+    "raw_nested": {
+      "checkpoints": {
+        "6h": {
+          "state_counts": {
+            "NO_ALERT": 1356,
+            "WATCH": 1150,
+            "HIGH_ALERT": 0,
+            "NOT_ASSESSED": 54
+          },
+          "any_warning": {
+            "tp": 257,
+            "fp": 893,
+            "tn": 1266,
+            "fn": 90,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7406340057636888,
+            "false_positive_rate_in_assessed_population": 0.41361741547012504,
+            "precision": 0.2234782608695652,
+            "fraction_of_all_death_labels_detected": 0.7259887005649718
+          },
+          "persistent_high_alert": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          },
+          "high_risk_category": {
+            "tp": 89,
+            "fp": 229,
+            "tn": 1930,
+            "fn": 258,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.2564841498559078,
+            "false_positive_rate_in_assessed_population": 0.10606762389995368,
+            "precision": 0.279874213836478,
+            "fraction_of_all_death_labels_detected": 0.2514124293785311
+          }
+        },
+        "12h": {
+          "state_counts": {
+            "NO_ALERT": 1505,
+            "WATCH": 183,
+            "HIGH_ALERT": 866,
+            "NOT_ASSESSED": 6
+          },
+          "any_warning": {
+            "tp": 252,
+            "fp": 797,
+            "tn": 1403,
+            "fn": 102,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.711864406779661,
+            "false_positive_rate_in_assessed_population": 0.36227272727272725,
+            "precision": 0.2402287893231649,
+            "fraction_of_all_death_labels_detected": 0.711864406779661
+          },
+          "persistent_high_alert": {
+            "tp": 221,
+            "fp": 645,
+            "tn": 1555,
+            "fn": 133,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6242937853107344,
+            "false_positive_rate_in_assessed_population": 0.29318181818181815,
+            "precision": 0.25519630484988454,
+            "fraction_of_all_death_labels_detected": 0.6242937853107344
+          },
+          "high_risk_category": {
+            "tp": 119,
+            "fp": 185,
+            "tn": 2015,
+            "fn": 235,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3361581920903955,
+            "false_positive_rate_in_assessed_population": 0.08409090909090909,
+            "precision": 0.39144736842105265,
+            "fraction_of_all_death_labels_detected": 0.3361581920903955
+          }
+        },
+        "24h": {
+          "state_counts": {
+            "NO_ALERT": 1516,
+            "WATCH": 197,
+            "HIGH_ALERT": 846,
+            "NOT_ASSESSED": 1
+          },
+          "any_warning": {
+            "tp": 270,
+            "fp": 773,
+            "tn": 1432,
+            "fn": 84,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.7627118644067796,
+            "false_positive_rate_in_assessed_population": 0.3505668934240363,
+            "precision": 0.2588686481303931,
+            "fraction_of_all_death_labels_detected": 0.7627118644067796
+          },
+          "persistent_high_alert": {
+            "tp": 237,
+            "fp": 609,
+            "tn": 1596,
+            "fn": 117,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6694915254237288,
+            "false_positive_rate_in_assessed_population": 0.2761904761904762,
+            "precision": 0.2801418439716312,
+            "fraction_of_all_death_labels_detected": 0.6694915254237288
+          },
+          "high_risk_category": {
+            "tp": 130,
+            "fp": 198,
+            "tn": 2007,
+            "fn": 224,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3672316384180791,
+            "false_positive_rate_in_assessed_population": 0.08979591836734693,
+            "precision": 0.39634146341463417,
+            "fraction_of_all_death_labels_detected": 0.3672316384180791
+          }
+        }
+      },
+      "cumulative_through_checkpoint": {
+        "6h": {
+          "any_warning_seen": {
+            "tp": 257,
+            "fp": 893,
+            "tn": 1266,
+            "fn": 90,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7406340057636888,
+            "false_positive_rate_in_assessed_population": 0.41361741547012504,
+            "precision": 0.2234782608695652,
+            "fraction_of_all_death_labels_detected": 0.7259887005649718
+          },
+          "persistent_high_alert_seen": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          }
+        },
+        "12h": {
+          "any_warning_seen": {
+            "tp": 288,
+            "fp": 1045,
+            "tn": 1155,
+            "fn": 66,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.8135593220338984,
+            "false_positive_rate_in_assessed_population": 0.475,
+            "precision": 0.21605401350337583,
+            "fraction_of_all_death_labels_detected": 0.8135593220338984
+          },
+          "persistent_high_alert_seen": {
+            "tp": 221,
+            "fp": 645,
+            "tn": 1555,
+            "fn": 133,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6242937853107344,
+            "false_positive_rate_in_assessed_population": 0.29318181818181815,
+            "precision": 0.25519630484988454,
+            "fraction_of_all_death_labels_detected": 0.6242937853107344
+          }
+        },
+        "24h": {
+          "any_warning_seen": {
+            "tp": 308,
+            "fp": 1136,
+            "tn": 1069,
+            "fn": 46,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.8700564971751412,
+            "false_positive_rate_in_assessed_population": 0.5151927437641723,
+            "precision": 0.21329639889196675,
+            "fraction_of_all_death_labels_detected": 0.8700564971751412
+          },
+          "persistent_high_alert_seen": {
+            "tp": 251,
+            "fp": 739,
+            "tn": 1466,
+            "fn": 103,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.7090395480225988,
+            "false_positive_rate_in_assessed_population": 0.3351473922902494,
+            "precision": 0.25353535353535356,
+            "fraction_of_all_death_labels_detected": 0.7090395480225988
+          }
+        }
+      },
+      "first_warning_checkpoint_counts": {
+        "6h": {
+          "patients": 1150,
+          "death_labels": 257
+        },
+        "12h": {
+          "patients": 183,
+          "death_labels": 31
+        },
+        "24h": {
+          "patients": 111,
+          "death_labels": 20
+        }
+      }
+    },
+    "calibrated_nested": {
+      "checkpoints": {
+        "6h": {
+          "state_counts": {
+            "NO_ALERT": 1367,
+            "WATCH": 1139,
+            "HIGH_ALERT": 0,
+            "NOT_ASSESSED": 54
+          },
+          "any_warning": {
+            "tp": 255,
+            "fp": 884,
+            "tn": 1275,
+            "fn": 92,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7348703170028819,
+            "false_positive_rate_in_assessed_population": 0.4094488188976378,
+            "precision": 0.22388059701492538,
+            "fraction_of_all_death_labels_detected": 0.7203389830508474
+          },
+          "persistent_high_alert": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          },
+          "high_risk_category": {
+            "tp": 82,
+            "fp": 189,
+            "tn": 1970,
+            "fn": 265,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.23631123919308358,
+            "false_positive_rate_in_assessed_population": 0.08754052802223251,
+            "precision": 0.3025830258302583,
+            "fraction_of_all_death_labels_detected": 0.23163841807909605
+          }
+        },
+        "12h": {
+          "state_counts": {
+            "NO_ALERT": 1504,
+            "WATCH": 193,
+            "HIGH_ALERT": 857,
+            "NOT_ASSESSED": 6
+          },
+          "any_warning": {
+            "tp": 252,
+            "fp": 798,
+            "tn": 1402,
+            "fn": 102,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.711864406779661,
+            "false_positive_rate_in_assessed_population": 0.36272727272727273,
+            "precision": 0.24,
+            "fraction_of_all_death_labels_detected": 0.711864406779661
+          },
+          "persistent_high_alert": {
+            "tp": 215,
+            "fp": 642,
+            "tn": 1558,
+            "fn": 139,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6073446327683616,
+            "false_positive_rate_in_assessed_population": 0.2918181818181818,
+            "precision": 0.2508751458576429,
+            "fraction_of_all_death_labels_detected": 0.6073446327683616
+          },
+          "high_risk_category": {
+            "tp": 126,
+            "fp": 213,
+            "tn": 1987,
+            "fn": 228,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3559322033898305,
+            "false_positive_rate_in_assessed_population": 0.09681818181818182,
+            "precision": 0.37168141592920356,
+            "fraction_of_all_death_labels_detected": 0.3559322033898305
+          }
+        },
+        "24h": {
+          "state_counts": {
+            "NO_ALERT": 1514,
+            "WATCH": 204,
+            "HIGH_ALERT": 841,
+            "NOT_ASSESSED": 1
+          },
+          "any_warning": {
+            "tp": 271,
+            "fp": 774,
+            "tn": 1431,
+            "fn": 83,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.7655367231638418,
+            "false_positive_rate_in_assessed_population": 0.3510204081632653,
+            "precision": 0.25933014354066986,
+            "fraction_of_all_death_labels_detected": 0.7655367231638418
+          },
+          "persistent_high_alert": {
+            "tp": 238,
+            "fp": 603,
+            "tn": 1602,
+            "fn": 116,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.672316384180791,
+            "false_positive_rate_in_assessed_population": 0.27346938775510204,
+            "precision": 0.28299643281807374,
+            "fraction_of_all_death_labels_detected": 0.672316384180791
+          },
+          "high_risk_category": {
+            "tp": 141,
+            "fp": 246,
+            "tn": 1959,
+            "fn": 213,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.3983050847457627,
+            "false_positive_rate_in_assessed_population": 0.11156462585034013,
+            "precision": 0.3643410852713178,
+            "fraction_of_all_death_labels_detected": 0.3983050847457627
+          }
+        }
+      },
+      "cumulative_through_checkpoint": {
+        "6h": {
+          "any_warning_seen": {
+            "tp": 255,
+            "fp": 884,
+            "tn": 1275,
+            "fn": 92,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.7348703170028819,
+            "false_positive_rate_in_assessed_population": 0.4094488188976378,
+            "precision": 0.22388059701492538,
+            "fraction_of_all_death_labels_detected": 0.7203389830508474
+          },
+          "persistent_high_alert_seen": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2159,
+            "fn": 347,
+            "assessed_patients": 2506,
+            "unassessed_patients": 54,
+            "unassessed_death_labels": 7,
+            "recall_in_assessed_population": 0.0,
+            "false_positive_rate_in_assessed_population": 0.0,
+            "precision": null,
+            "fraction_of_all_death_labels_detected": 0.0
+          }
+        },
+        "12h": {
+          "any_warning_seen": {
+            "tp": 292,
+            "fp": 1040,
+            "tn": 1160,
+            "fn": 62,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.8248587570621468,
+            "false_positive_rate_in_assessed_population": 0.4727272727272727,
+            "precision": 0.21921921921921922,
+            "fraction_of_all_death_labels_detected": 0.8248587570621468
+          },
+          "persistent_high_alert_seen": {
+            "tp": 215,
+            "fp": 642,
+            "tn": 1558,
+            "fn": 139,
+            "assessed_patients": 2554,
+            "unassessed_patients": 6,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.6073446327683616,
+            "false_positive_rate_in_assessed_population": 0.2918181818181818,
+            "precision": 0.2508751458576429,
+            "fraction_of_all_death_labels_detected": 0.6073446327683616
+          }
+        },
+        "24h": {
+          "any_warning_seen": {
+            "tp": 309,
+            "fp": 1140,
+            "tn": 1065,
+            "fn": 45,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.8728813559322034,
+            "false_positive_rate_in_assessed_population": 0.5170068027210885,
+            "precision": 0.21325051759834368,
+            "fraction_of_all_death_labels_detected": 0.8728813559322034
+          },
+          "persistent_high_alert_seen": {
+            "tp": 249,
+            "fp": 739,
+            "tn": 1466,
+            "fn": 105,
+            "assessed_patients": 2559,
+            "unassessed_patients": 1,
+            "unassessed_death_labels": 0,
+            "recall_in_assessed_population": 0.7033898305084746,
+            "false_positive_rate_in_assessed_population": 0.3351473922902494,
+            "precision": 0.2520242914979757,
+            "fraction_of_all_death_labels_detected": 0.7033898305084746
+          }
+        }
+      },
+      "first_warning_checkpoint_counts": {
+        "6h": {
+          "patients": 1139,
+          "death_labels": 255
+        },
+        "12h": {
+          "patients": 193,
+          "death_labels": 37
+        },
+        "24h": {
+          "patients": 117,
+          "death_labels": 17
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Development patients were previously examined; nested CV is not an untouched final test.",
+    "Engineering recall floors were declared before this run, not derived from clinical requirements.",
+    "False positives mean survivor labels with a warning; they are not proven unnecessary clinical alarms.",
+    "First warning checkpoint is not a validated lead time before deterioration or death.",
+    "Observation-scoreability does not confirm alive-and-in-ICU eligibility or adequate medical information.",
+    "One threshold pair is chosen per outer training fold; there is no deployable global threshold in this report.",
+    "No model artifacts, runtime boundaries, or historical website performance data were changed.",
+    "No individual patient predictions or alert histories were persisted."
+  ]
+}

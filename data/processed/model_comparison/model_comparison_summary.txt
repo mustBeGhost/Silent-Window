@@ -1,0 +1,25 @@
+Silent Window -- Model Comparison Summary
+==================================================
+
+PROTOCOL:
+  Development patients: 2560
+  Held-out (untouched): 640
+  CV: StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+  Feature version: V2 (V1 + slope)
+  Features (before OHE): 132
+
+MODELS:
+  LogReg: LogisticRegression(class_weight='balanced', max_iter=1000, solver='lbfgs')
+  RF: RandomForestClassifier(n_estimators=200, max_depth=12, min_samples_leaf=10, class_weight='balanced')
+
+RESULTS (mean +/- std across 5 folds):
+  LogReg @ 6h: ROC-AUC=0.6698+/-0.0451  PR-AUC=0.2495+/-0.0404  FPR=0.3187
+      RF @ 6h: ROC-AUC=0.7256+/-0.0179  PR-AUC=0.2829+/-0.0232  FPR=0.2108
+  LogReg @ 12h: ROC-AUC=0.6992+/-0.0233  PR-AUC=0.2806+/-0.0354  FPR=0.2874
+      RF @ 12h: ROC-AUC=0.7494+/-0.0176  PR-AUC=0.3355+/-0.0456  FPR=0.1768
+  LogReg @ 24h: ROC-AUC=0.7361+/-0.0145  PR-AUC=0.3068+/-0.0370  FPR=0.2697
+      RF @ 24h: ROC-AUC=0.7806+/-0.0090  PR-AUC=0.3568+/-0.0334  FPR=0.1714
+
+NOTE: The 640-patient holdout was NOT evaluated.
+NOTE: Threshold tuning has NOT been performed.
+NOTE: Model selection should consider earliness vs performance.

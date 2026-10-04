@@ -1,0 +1,43 @@
+name: Project checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Install Python packages
+        run: python -m pip install -r requirements-dev.txt -c requirements-lock.txt
+      - name: Install frontend packages
+        working-directory: frontend
+        run: npm ci
+      - name: Check public source and history
+        run: python -m scripts.prepare_release --history
+      - name: Check files and saved models
+        run: python -m scripts.check_installation --skip-database
+      - name: Backend and model checks
+        run: python -m pytest tests -q
+      - name: Frontend checks
+        working-directory: frontend
+        run: npm test
+      - name: Production frontend build
+        working-directory: frontend
+        run: npm run build

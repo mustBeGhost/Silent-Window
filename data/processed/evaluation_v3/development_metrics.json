@@ -1,0 +1,1380 @@
+{
+  "schema_version": 1,
+  "status": "EXPLORATORY_DEVELOPMENT_ONLY_NOT_DEPLOYED",
+  "target": "In-hospital_death",
+  "coverage_policy": "at_least_one_supported_temporal_observation_v1",
+  "clinical_checkpoint_eligibility": "UNKNOWN_FROM_AVAILABLE_FIELDS",
+  "outer_cv": {
+    "n_splits": 5,
+    "stratified": true,
+    "shuffle": true,
+    "random_state": 42
+  },
+  "calibration": {
+    "method": "sigmoid",
+    "inner_cv_splits": 3,
+    "ensemble": false,
+    "fitted_within_outer_training_only": true
+  },
+  "thresholds": {
+    "values": [
+      0.4,
+      0.5,
+      0.55
+    ],
+    "status": "FIXED_HISTORICAL_REFERENCE_NOT_RETUNED"
+  },
+  "development_cohort_sha256": "5d33f2617edf91f752ca56f9f49cbfc48b8899c8457f921e5b0fe2e64e94a864",
+  "raw_development_patient_files_sha256": "03bbc4838130464c9a87d002e9a713fc40308450d58d49f6c89547cccd2f471e",
+  "outcomes_sha256": "3b4aea44818aae82916add5f941dd481c5774f7491a3600eb89c37050d02dff3",
+  "split_sha256": "1c31c3e31a080d3665a1f93270087ceadcaabc41eaaecc81751246cb04286a32",
+  "separated_cohort_sha256": "36dc8664dcfd97310a758d62064b6526e068825745918cfb36dd2bf6ddb239b1",
+  "separated_patients_evaluated": 0,
+  "production_manifest_sha256": "17ef60d2b3dba6e1e3854bf74d4664e27e4a6c5adea4088e505f30ad9a8d0614",
+  "production_artifact_sha256": {
+    "6h": "9b48ea15d56a36a506383fda9576aa8cec11ddaa9a7868729c11314647a0b4ee",
+    "12h": "2004a9856db0e1ec41332fa34873a819509b9fd5d1c6935706bb165d8de29ae4",
+    "24h": "2a2476634b883add4cd9e8bcedbf0614ba280258c43733268c3a3dda000e4d88"
+  },
+  "source_sha256": {
+    "ml/evaluation.py": "433c396f915e5845637ad47d5f19825dcb93ed28fbc655c8b2820c39c6098b09",
+    "ml/coverage.py": "7d155de8ab4e3f2b394805661672bdfe4e8800b218906fb7598b2744d7f5e4ec",
+    "ml/features.py": "6cee22eb3ebaf44e2c3af2619d794dbd79a6e40fcd2cf44893d2a9603811be43",
+    "ml/preprocessing.py": "3f9bc9bbf882514ebf8610022f3c43d64d13f9c81a1fb16123fcc909bc15d8b0",
+    "ml/threshold_analysis.py": "ca100a4346940b201c9ca4b0dbad4e57506e5c88ae1b85a185dead0e911700c8",
+    "ml/train_models.py": "ee5870f182fff43953960a69ab1c15837a9dc3e8be5061fe7c4f8a0f4bb4a313",
+    "scripts/evaluate_scoreable_models.py": "c2d90fbce286ecd09f6077c8994c98b8c45d86481ff757f6074769c15ff19794"
+  },
+  "coverage": {
+    "6h": {
+      "development_patients": 2560,
+      "patients_scored": 2506,
+      "patients_not_scored": 54,
+      "scoreable_cohort_sha256": "5e53a55951b8f8aabc3cf66989db56ea3aa757c93f70a9afa23f342c1d27384f",
+      "death_labels_not_scored": 7
+    },
+    "12h": {
+      "development_patients": 2560,
+      "patients_scored": 2554,
+      "patients_not_scored": 6,
+      "scoreable_cohort_sha256": "7fbbe734b935b2d3c6de4a411340789e44afef61fe1925f6dae517210ffedad2",
+      "death_labels_not_scored": 0
+    },
+    "24h": {
+      "development_patients": 2560,
+      "patients_scored": 2559,
+      "patients_not_scored": 1,
+      "scoreable_cohort_sha256": "52f963a99bcdfd1c34fafd4ed98dff71af3a4cc141071c06273d989ffd04c94a",
+      "death_labels_not_scored": 0
+    }
+  },
+  "results": [
+    {
+      "model": "prevalence_baseline",
+      "checkpoint": "6h",
+      "patients_scored": 2506,
+      "deaths_in_scored_population": 347,
+      "observed_death_rate": 0.13846767757382283,
+      "mean_model_score": 0.13846755581587789,
+      "pooled_oof_roc_auc": 0.4980852219714272,
+      "fold_mean_roc_auc": 0.5,
+      "average_precision": 0.1379612173162511,
+      "brier_score": 0.11929484972318202,
+      "log_loss": 0.4021740647460314,
+      "expected_calibration_error_10_fixed_bins": 1.2175794494861947e-07,
+      "calibration_bins": [
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 2506,
+          "mean_model_score": 0.13846755581587789,
+          "observed_death_rate": 0.13846767757382283
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2159,
+          "fn": 347,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2159,
+          "fn": 347,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.55,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2159,
+          "fn": 347,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "checkpoint": "6h",
+      "patients_scored": 2506,
+      "deaths_in_scored_population": 347,
+      "observed_death_rate": 0.13846767757382283,
+      "mean_model_score": 0.411541218485474,
+      "pooled_oof_roc_auc": 0.6797455327407689,
+      "fold_mean_roc_auc": 0.6796185693398529,
+      "average_precision": 0.23806153844233657,
+      "brier_score": 0.21585748046560124,
+      "log_loss": 0.6445094215300802,
+      "expected_calibration_error_10_fixed_bins": 0.2730735409116512,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 280,
+          "mean_model_score": 0.046272657216193835,
+          "observed_death_rate": 0.039285714285714285
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 278,
+          "mean_model_score": 0.15166403719566213,
+          "observed_death_rate": 0.07553956834532374
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 337,
+          "mean_model_score": 0.2510145571569899,
+          "observed_death_rate": 0.08011869436201781
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 368,
+          "mean_model_score": 0.349227504244545,
+          "observed_death_rate": 0.09782608695652174
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 345,
+          "mean_model_score": 0.44922230856641826,
+          "observed_death_rate": 0.11594202898550725
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 297,
+          "mean_model_score": 0.5494590750548198,
+          "observed_death_rate": 0.2255892255892256
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 258,
+          "mean_model_score": 0.6461496494655024,
+          "observed_death_rate": 0.19767441860465115
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 180,
+          "mean_model_score": 0.7442916594333906,
+          "observed_death_rate": 0.2833333333333333
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "upper_inclusive": false,
+          "patients": 104,
+          "mean_model_score": 0.8478308228617716,
+          "observed_death_rate": 0.25
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "upper_inclusive": true,
+          "patients": 59,
+          "mean_model_score": 0.9503587161922268,
+          "observed_death_rate": 0.288135593220339
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 252,
+          "fp": 991,
+          "tn": 1168,
+          "fn": 95,
+          "precision": 0.20273531777956558,
+          "recall": 0.7262247838616714,
+          "sensitivity": 0.7262247838616714,
+          "specificity": 0.5409911996294581,
+          "false_positive_rate": 0.4590088003705419,
+          "f1": 0.3169811320754717
+        },
+        {
+          "threshold": 0.5,
+          "tp": 212,
+          "fp": 686,
+          "tn": 1473,
+          "fn": 135,
+          "precision": 0.23608017817371937,
+          "recall": 0.6109510086455331,
+          "sensitivity": 0.6109510086455331,
+          "specificity": 0.682260305697082,
+          "false_positive_rate": 0.31773969430291804,
+          "f1": 0.34056224899598386
+        },
+        {
+          "threshold": 0.55,
+          "tp": 179,
+          "fp": 569,
+          "tn": 1590,
+          "fn": 168,
+          "precision": 0.2393048128342246,
+          "recall": 0.515850144092219,
+          "sensitivity": 0.515850144092219,
+          "specificity": 0.7364520611394164,
+          "false_positive_rate": 0.2635479388605836,
+          "f1": 0.3269406392694064
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "checkpoint": "6h",
+      "patients_scored": 2506,
+      "deaths_in_scored_population": 347,
+      "observed_death_rate": 0.13846767757382283,
+      "mean_model_score": 0.3739043531978068,
+      "pooled_oof_roc_auc": 0.7244895371296083,
+      "fold_mean_roc_auc": 0.7251419238912934,
+      "average_precision": 0.2869343182796368,
+      "brier_score": 0.17051538754943835,
+      "log_loss": 0.5146537955364807,
+      "expected_calibration_error_10_fixed_bins": 0.2355780824324495,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 131,
+          "mean_model_score": 0.06608041313189587,
+          "observed_death_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 263,
+          "mean_model_score": 0.15025017169117336,
+          "observed_death_rate": 0.022813688212927757
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 437,
+          "mean_model_score": 0.2534728939884667,
+          "observed_death_rate": 0.05263157894736842
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 549,
+          "mean_model_score": 0.35009390583721633,
+          "observed_death_rate": 0.11475409836065574
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 523,
+          "mean_model_score": 0.4483499689640186,
+          "observed_death_rate": 0.1739961759082218
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 389,
+          "mean_model_score": 0.5457293690924937,
+          "observed_death_rate": 0.2416452442159383
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 189,
+          "mean_model_score": 0.639052351368136,
+          "observed_death_rate": 0.30158730158730157
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 24,
+          "mean_model_score": 0.7284708682634579,
+          "observed_death_rate": 0.5
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "upper_inclusive": false,
+          "patients": 1,
+          "mean_model_score": 0.8228172689927225,
+          "observed_death_rate": 1.0
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 255,
+          "fp": 871,
+          "tn": 1288,
+          "fn": 92,
+          "precision": 0.22646536412078153,
+          "recall": 0.7348703170028819,
+          "sensitivity": 0.7348703170028819,
+          "specificity": 0.5965724872626216,
+          "false_positive_rate": 0.4034275127373784,
+          "f1": 0.34623217922606925
+        },
+        {
+          "threshold": 0.5,
+          "tp": 164,
+          "fp": 439,
+          "tn": 1720,
+          "fn": 183,
+          "precision": 0.27197346600331673,
+          "recall": 0.47262247838616717,
+          "sensitivity": 0.47262247838616717,
+          "specificity": 0.7966651227420102,
+          "false_positive_rate": 0.20333487725798982,
+          "f1": 0.3452631578947368
+        },
+        {
+          "threshold": 0.55,
+          "tp": 113,
+          "fp": 273,
+          "tn": 1886,
+          "fn": 234,
+          "precision": 0.2927461139896373,
+          "recall": 0.3256484149855908,
+          "sensitivity": 0.3256484149855908,
+          "specificity": 0.873552570634553,
+          "false_positive_rate": 0.12644742936544698,
+          "f1": 0.3083219645293315
+        }
+      ]
+    },
+    {
+      "model": "random_forest_sigmoid",
+      "checkpoint": "6h",
+      "patients_scored": 2506,
+      "deaths_in_scored_population": 347,
+      "observed_death_rate": 0.13846767757382283,
+      "mean_model_score": 0.1396498425255267,
+      "pooled_oof_roc_auc": 0.7244254664810399,
+      "fold_mean_roc_auc": 0.7251419238912934,
+      "average_precision": 0.2865057858198353,
+      "brier_score": 0.11031260827235284,
+      "log_loss": 0.36302522231049694,
+      "expected_calibration_error_10_fixed_bins": 0.011718041609848712,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 1094,
+          "mean_model_score": 0.05898009185173291,
+          "observed_death_rate": 0.050274223034734916
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 818,
+          "mean_model_score": 0.14357938890925862,
+          "observed_death_rate": 0.15647921760391198
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 389,
+          "mean_model_score": 0.24354839947028287,
+          "observed_death_rate": 0.2467866323907455
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 167,
+          "mean_model_score": 0.3379719922932094,
+          "observed_death_rate": 0.30538922155688625
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 35,
+          "mean_model_score": 0.43424044636753156,
+          "observed_death_rate": 0.4
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 3,
+          "mean_model_score": 0.5367596752103078,
+          "observed_death_rate": 1.0
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 17,
+          "fp": 21,
+          "tn": 2138,
+          "fn": 330,
+          "precision": 0.4473684210526316,
+          "recall": 0.04899135446685879,
+          "sensitivity": 0.04899135446685879,
+          "specificity": 0.9902732746641963,
+          "false_positive_rate": 0.009726725335803613,
+          "f1": 0.08831168831168831
+        },
+        {
+          "threshold": 0.5,
+          "tp": 3,
+          "fp": 0,
+          "tn": 2159,
+          "fn": 344,
+          "precision": 1.0,
+          "recall": 0.008645533141210375,
+          "sensitivity": 0.008645533141210375,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.017142857142857147
+        },
+        {
+          "threshold": 0.55,
+          "tp": 1,
+          "fp": 0,
+          "tn": 2159,
+          "fn": 346,
+          "precision": 1.0,
+          "recall": 0.002881844380403458,
+          "sensitivity": 0.002881844380403458,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.005747126436781608
+        }
+      ]
+    },
+    {
+      "model": "prevalence_baseline",
+      "checkpoint": "12h",
+      "patients_scored": 2554,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13860610806577917,
+      "mean_model_score": 0.1386059430435244,
+      "pooled_oof_roc_auc": 0.4988700564971752,
+      "fold_mean_roc_auc": 0.5,
+      "average_precision": 0.13833892041789883,
+      "brier_score": 0.1193947106994089,
+      "log_loss": 0.4024261463232008,
+      "expected_calibration_error_10_fixed_bins": 1.650222547777691e-07,
+      "calibration_bins": [
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 2554,
+          "mean_model_score": 0.1386059430435244,
+          "observed_death_rate": 0.13860610806577917
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2200,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2200,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.55,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2200,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "checkpoint": "12h",
+      "patients_scored": 2554,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13860610806577917,
+      "mean_model_score": 0.38935685927581215,
+      "pooled_oof_roc_auc": 0.7051386748844376,
+      "fold_mean_roc_auc": 0.7058655569782332,
+      "average_precision": 0.26438608281304266,
+      "brier_score": 0.20608007372442386,
+      "log_loss": 0.6206731241218534,
+      "expected_calibration_error_10_fixed_bins": 0.250750751210033,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 423,
+          "mean_model_score": 0.04431786864473432,
+          "observed_death_rate": 0.03546099290780142
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 320,
+          "mean_model_score": 0.14893517850093096,
+          "observed_death_rate": 0.05625
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 349,
+          "mean_model_score": 0.24835732130561547,
+          "observed_death_rate": 0.07736389684813753
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 313,
+          "mean_model_score": 0.3468114159565132,
+          "observed_death_rate": 0.13738019169329074
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 292,
+          "mean_model_score": 0.44744974400387466,
+          "observed_death_rate": 0.15753424657534246
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 238,
+          "mean_model_score": 0.5496824349317929,
+          "observed_death_rate": 0.15966386554621848
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 223,
+          "mean_model_score": 0.6500898927926124,
+          "observed_death_rate": 0.23318385650224216
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 175,
+          "mean_model_score": 0.7477321575565803,
+          "observed_death_rate": 0.26285714285714284
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "upper_inclusive": false,
+          "patients": 133,
+          "mean_model_score": 0.8432841963438413,
+          "observed_death_rate": 0.2631578947368421
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "upper_inclusive": true,
+          "patients": 88,
+          "mean_model_score": 0.9468557745633184,
+          "observed_death_rate": 0.38636363636363635
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 251,
+          "fp": 898,
+          "tn": 1302,
+          "fn": 103,
+          "precision": 0.21845082680591818,
+          "recall": 0.7090395480225988,
+          "sensitivity": 0.7090395480225988,
+          "specificity": 0.5918181818181818,
+          "false_positive_rate": 0.4081818181818182,
+          "f1": 0.3339986693280106
+        },
+        {
+          "threshold": 0.5,
+          "tp": 205,
+          "fp": 652,
+          "tn": 1548,
+          "fn": 149,
+          "precision": 0.23920653442240372,
+          "recall": 0.5790960451977402,
+          "sensitivity": 0.5790960451977402,
+          "specificity": 0.7036363636363636,
+          "false_positive_rate": 0.2963636363636364,
+          "f1": 0.3385631709331131
+        },
+        {
+          "threshold": 0.55,
+          "tp": 185,
+          "fp": 557,
+          "tn": 1643,
+          "fn": 169,
+          "precision": 0.24932614555256064,
+          "recall": 0.5225988700564972,
+          "sensitivity": 0.5225988700564972,
+          "specificity": 0.7468181818181818,
+          "false_positive_rate": 0.2531818181818182,
+          "f1": 0.33759124087591247
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "checkpoint": "12h",
+      "patients_scored": 2554,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13860610806577917,
+      "mean_model_score": 0.35874452236923915,
+      "pooled_oof_roc_auc": 0.743876476630714,
+      "fold_mean_roc_auc": 0.7462372416316079,
+      "average_precision": 0.3204992750563244,
+      "brier_score": 0.16071280651222292,
+      "log_loss": 0.49169941354618835,
+      "expected_calibration_error_10_fixed_bins": 0.2201384143034601,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 175,
+          "mean_model_score": 0.059279547646634456,
+          "observed_death_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 271,
+          "mean_model_score": 0.156759673734537,
+          "observed_death_rate": 0.02214022140221402
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 527,
+          "mean_model_score": 0.25203726734698134,
+          "observed_death_rate": 0.06641366223908918
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 559,
+          "mean_model_score": 0.34878183162669596,
+          "observed_death_rate": 0.1252236135957066
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 462,
+          "mean_model_score": 0.4488337086245034,
+          "observed_death_rate": 0.15800865800865802
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 357,
+          "mean_model_score": 0.5462389089495687,
+          "observed_death_rate": 0.24929971988795518
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 172,
+          "mean_model_score": 0.6428040964416916,
+          "observed_death_rate": 0.37790697674418605
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 31,
+          "mean_model_score": 0.7307827571660205,
+          "observed_death_rate": 0.5161290322580645
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 243,
+          "fp": 779,
+          "tn": 1421,
+          "fn": 111,
+          "precision": 0.23776908023483365,
+          "recall": 0.6864406779661016,
+          "sensitivity": 0.6864406779661016,
+          "specificity": 0.6459090909090909,
+          "false_positive_rate": 0.35409090909090907,
+          "f1": 0.3531976744186046
+        },
+        {
+          "threshold": 0.5,
+          "tp": 170,
+          "fp": 390,
+          "tn": 1810,
+          "fn": 184,
+          "precision": 0.30357142857142855,
+          "recall": 0.480225988700565,
+          "sensitivity": 0.480225988700565,
+          "specificity": 0.8227272727272728,
+          "false_positive_rate": 0.17727272727272728,
+          "f1": 0.37199124726477023
+        },
+        {
+          "threshold": 0.55,
+          "tp": 129,
+          "fp": 236,
+          "tn": 1964,
+          "fn": 225,
+          "precision": 0.35342465753424657,
+          "recall": 0.3644067796610169,
+          "sensitivity": 0.3644067796610169,
+          "specificity": 0.8927272727272727,
+          "false_positive_rate": 0.10727272727272727,
+          "f1": 0.3588317107093185
+        }
+      ]
+    },
+    {
+      "model": "random_forest_sigmoid",
+      "checkpoint": "12h",
+      "patients_scored": 2554,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13860610806577917,
+      "mean_model_score": 0.13828096701075565,
+      "pooled_oof_roc_auc": 0.7437455059065228,
+      "fold_mean_roc_auc": 0.7462372416316079,
+      "average_precision": 0.3181321002511359,
+      "brier_score": 0.10782336597502061,
+      "log_loss": 0.35499821363765605,
+      "expected_calibration_error_10_fixed_bins": 0.012185310546163062,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 1254,
+          "mean_model_score": 0.055286025537919094,
+          "observed_death_rate": 0.06140350877192982
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 689,
+          "mean_model_score": 0.14284989232703107,
+          "observed_death_rate": 0.14658925979680695
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 359,
+          "mean_model_score": 0.2466260041471042,
+          "observed_death_rate": 0.23119777158774374
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 161,
+          "mean_model_score": 0.3451258987244194,
+          "observed_death_rate": 0.2919254658385093
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 72,
+          "mean_model_score": 0.43433196482513536,
+          "observed_death_rate": 0.5138888888888888
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 19,
+          "mean_model_score": 0.5284963819338552,
+          "observed_death_rate": 0.47368421052631576
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 46,
+          "fp": 45,
+          "tn": 2155,
+          "fn": 308,
+          "precision": 0.5054945054945055,
+          "recall": 0.12994350282485875,
+          "sensitivity": 0.12994350282485875,
+          "specificity": 0.9795454545454545,
+          "false_positive_rate": 0.020454545454545454,
+          "f1": 0.20674157303370785
+        },
+        {
+          "threshold": 0.5,
+          "tp": 9,
+          "fp": 10,
+          "tn": 2190,
+          "fn": 345,
+          "precision": 0.47368421052631576,
+          "recall": 0.025423728813559324,
+          "sensitivity": 0.025423728813559324,
+          "specificity": 0.9954545454545455,
+          "false_positive_rate": 0.004545454545454545,
+          "f1": 0.0482573726541555
+        },
+        {
+          "threshold": 0.55,
+          "tp": 0,
+          "fp": 1,
+          "tn": 2199,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 0.9995454545454545,
+          "false_positive_rate": 0.00045454545454545455,
+          "f1": 0.0
+        }
+      ]
+    },
+    {
+      "model": "prevalence_baseline",
+      "checkpoint": "24h",
+      "patients_scored": 2559,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13833528722157093,
+      "mean_model_score": 0.13833512279178173,
+      "pooled_oof_roc_auc": 0.4988700564971752,
+      "fold_mean_roc_auc": 0.5,
+      "average_precision": 0.1380685386068264,
+      "brier_score": 0.11919889051941907,
+      "log_loss": 0.4019310703908385,
+      "expected_calibration_error_10_fixed_bins": 1.6442978920117035e-07,
+      "calibration_bins": [
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 2559,
+          "mean_model_score": 0.13833512279178173,
+          "observed_death_rate": 0.13833528722157093
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2205,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.5,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2205,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        },
+        {
+          "threshold": 0.55,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2205,
+          "fn": 354,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sensitivity": 0.0,
+          "specificity": 1.0,
+          "false_positive_rate": 0.0,
+          "f1": 0.0
+        }
+      ]
+    },
+    {
+      "model": "logistic_regression",
+      "checkpoint": "24h",
+      "patients_scored": 2559,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13833528722157093,
+      "mean_model_score": 0.36552235594014343,
+      "pooled_oof_roc_auc": 0.734093034577296,
+      "fold_mean_roc_auc": 0.7340228217376824,
+      "average_precision": 0.2949107624596943,
+      "brier_score": 0.19258023284798956,
+      "log_loss": 0.5846731207061437,
+      "expected_calibration_error_10_fixed_bins": 0.22718706871857247,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 561,
+          "mean_model_score": 0.04841801462543918,
+          "observed_death_rate": 0.030303030303030304
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 395,
+          "mean_model_score": 0.1493949675992699,
+          "observed_death_rate": 0.05822784810126582
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 324,
+          "mean_model_score": 0.2459562223197038,
+          "observed_death_rate": 0.1111111111111111
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 223,
+          "mean_model_score": 0.34943321814049394,
+          "observed_death_rate": 0.13004484304932734
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 248,
+          "mean_model_score": 0.4462006733782146,
+          "observed_death_rate": 0.14112903225806453
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 207,
+          "mean_model_score": 0.549130637273245,
+          "observed_death_rate": 0.20772946859903382
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 180,
+          "mean_model_score": 0.6482097134750969,
+          "observed_death_rate": 0.21666666666666667
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 157,
+          "mean_model_score": 0.74755292445807,
+          "observed_death_rate": 0.25477707006369427
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "upper_inclusive": false,
+          "patients": 166,
+          "mean_model_score": 0.8467501968711768,
+          "observed_death_rate": 0.30120481927710846
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "upper_inclusive": true,
+          "patients": 98,
+          "mean_model_score": 0.9454374245706243,
+          "observed_death_rate": 0.42857142857142855
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 249,
+          "fp": 807,
+          "tn": 1398,
+          "fn": 105,
+          "precision": 0.23579545454545456,
+          "recall": 0.7033898305084746,
+          "sensitivity": 0.7033898305084746,
+          "specificity": 0.6340136054421769,
+          "false_positive_rate": 0.3659863945578231,
+          "f1": 0.35319148936170214
+        },
+        {
+          "threshold": 0.5,
+          "tp": 214,
+          "fp": 594,
+          "tn": 1611,
+          "fn": 140,
+          "precision": 0.26485148514851486,
+          "recall": 0.6045197740112994,
+          "sensitivity": 0.6045197740112994,
+          "specificity": 0.7306122448979592,
+          "false_positive_rate": 0.2693877551020408,
+          "f1": 0.36833046471600694
+        },
+        {
+          "threshold": 0.55,
+          "tp": 194,
+          "fp": 508,
+          "tn": 1697,
+          "fn": 160,
+          "precision": 0.27635327635327633,
+          "recall": 0.5480225988700564,
+          "sensitivity": 0.5480225988700564,
+          "specificity": 0.7696145124716554,
+          "false_positive_rate": 0.23038548752834467,
+          "f1": 0.3674242424242424
+        }
+      ]
+    },
+    {
+      "model": "random_forest",
+      "checkpoint": "24h",
+      "patients_scored": 2559,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13833528722157093,
+      "mean_model_score": 0.3471916793347372,
+      "pooled_oof_roc_auc": 0.77800837849264,
+      "fold_mean_roc_auc": 0.7793625243524639,
+      "average_precision": 0.3486734705692436,
+      "brier_score": 0.15209071397396726,
+      "log_loss": 0.47032787023697337,
+      "expected_calibration_error_10_fixed_bins": 0.20885639211316628,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 203,
+          "mean_model_score": 0.06016413748876729,
+          "observed_death_rate": 0.0
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 385,
+          "mean_model_score": 0.15382069052349492,
+          "observed_death_rate": 0.01818181818181818
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 494,
+          "mean_model_score": 0.2510547379302527,
+          "observed_death_rate": 0.058704453441295545
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 486,
+          "mean_model_score": 0.34968019584431714,
+          "observed_death_rate": 0.11522633744855967
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 443,
+          "mean_model_score": 0.44628590702813314,
+          "observed_death_rate": 0.18284424379232506
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 305,
+          "mean_model_score": 0.5448820428727162,
+          "observed_death_rate": 0.2721311475409836
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 198,
+          "mean_model_score": 0.6370380457537395,
+          "observed_death_rate": 0.3787878787878788
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "upper_inclusive": false,
+          "patients": 45,
+          "mean_model_score": 0.7341420664236081,
+          "observed_death_rate": 0.5111111111111111
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 262,
+          "fp": 729,
+          "tn": 1476,
+          "fn": 92,
+          "precision": 0.26437941473259335,
+          "recall": 0.7401129943502824,
+          "sensitivity": 0.7401129943502824,
+          "specificity": 0.6693877551020408,
+          "false_positive_rate": 0.3306122448979592,
+          "f1": 0.3895910780669145
+        },
+        {
+          "threshold": 0.5,
+          "tp": 181,
+          "fp": 367,
+          "tn": 1838,
+          "fn": 173,
+          "precision": 0.3302919708029197,
+          "recall": 0.5112994350282486,
+          "sensitivity": 0.5112994350282486,
+          "specificity": 0.8335600907029479,
+          "false_positive_rate": 0.16643990929705216,
+          "f1": 0.401330376940133
+        },
+        {
+          "threshold": 0.55,
+          "tp": 138,
+          "fp": 233,
+          "tn": 1972,
+          "fn": 216,
+          "precision": 0.3719676549865229,
+          "recall": 0.3898305084745763,
+          "sensitivity": 0.3898305084745763,
+          "specificity": 0.8943310657596372,
+          "false_positive_rate": 0.1056689342403628,
+          "f1": 0.38068965517241377
+        }
+      ]
+    },
+    {
+      "model": "random_forest_sigmoid",
+      "checkpoint": "24h",
+      "patients_scored": 2559,
+      "deaths_in_scored_population": 354,
+      "observed_death_rate": 0.13833528722157093,
+      "mean_model_score": 0.1393140077405968,
+      "pooled_oof_roc_auc": 0.7777675288571173,
+      "fold_mean_roc_auc": 0.7793625243524639,
+      "average_precision": 0.34902350624275075,
+      "brier_score": 0.10445175685761471,
+      "log_loss": 0.34109740246411896,
+      "expected_calibration_error_10_fixed_bins": 0.011246302101509526,
+      "calibration_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "upper_inclusive": false,
+          "patients": 1349,
+          "mean_model_score": 0.04949968304795057,
+          "observed_death_rate": 0.04744255003706449
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "upper_inclusive": false,
+          "patients": 587,
+          "mean_model_score": 0.1449314029349469,
+          "observed_death_rate": 0.16013628620102216
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "upper_inclusive": false,
+          "patients": 298,
+          "mean_model_score": 0.24556172251881686,
+          "observed_death_rate": 0.23825503355704697
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "upper_inclusive": false,
+          "patients": 187,
+          "mean_model_score": 0.3500789848396739,
+          "observed_death_rate": 0.3155080213903743
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "upper_inclusive": false,
+          "patients": 93,
+          "mean_model_score": 0.4412014263115937,
+          "observed_death_rate": 0.4838709677419355
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "upper_inclusive": false,
+          "patients": 39,
+          "mean_model_score": 0.5442225778375199,
+          "observed_death_rate": 0.4358974358974359
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "upper_inclusive": false,
+          "patients": 6,
+          "mean_model_score": 0.6260271992366886,
+          "observed_death_rate": 0.6666666666666666
+        }
+      ],
+      "fixed_threshold_metrics": [
+        {
+          "threshold": 0.4,
+          "tp": 66,
+          "fp": 72,
+          "tn": 2133,
+          "fn": 288,
+          "precision": 0.4782608695652174,
+          "recall": 0.1864406779661017,
+          "sensitivity": 0.1864406779661017,
+          "specificity": 0.9673469387755103,
+          "false_positive_rate": 0.0326530612244898,
+          "f1": 0.26829268292682923
+        },
+        {
+          "threshold": 0.5,
+          "tp": 21,
+          "fp": 24,
+          "tn": 2181,
+          "fn": 333,
+          "precision": 0.4666666666666667,
+          "recall": 0.059322033898305086,
+          "sensitivity": 0.059322033898305086,
+          "specificity": 0.9891156462585035,
+          "false_positive_rate": 0.010884353741496598,
+          "f1": 0.10526315789473685
+        },
+        {
+          "threshold": 0.55,
+          "tp": 12,
+          "fp": 9,
+          "tn": 2196,
+          "fn": 342,
+          "precision": 0.5714285714285714,
+          "recall": 0.03389830508474576,
+          "sensitivity": 0.03389830508474576,
+          "specificity": 0.9959183673469387,
+          "false_positive_rate": 0.004081632653061225,
+          "f1": 0.06399999999999999
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Known development data were reused; model comparisons and calibration diagnostics are exploratory.",
+    "Clinical eligibility at each checkpoint cannot be proved from the available rounded hospital outcomes.",
+    "Scoreable means at least one usable temporal measurement, not clinically sufficient information.",
+    "Fixed historical score thresholds need separate development tuning for any calibrated model.",
+    "No candidate was deployed, and no individual predictions were persisted."
+  ]
+}

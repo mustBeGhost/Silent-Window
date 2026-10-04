@@ -1,0 +1,123 @@
+Silent Window -- Evaluation Protocol
+=====================================
+
+STATUS: Active.  All future model development must follow this protocol.
+
+1. DEVELOPMENT HOLDOUT (current 640-patient test set)
+-----------------------------------------------------
+The existing 640-patient test set (split_metadata.json) has been used
+to evaluate the V1 Logistic Regression baseline.
+
+Because its results have already been viewed, it is now classified as:
+
+    DEVELOPMENT HOLDOUT
+
+It may be used ONLY as a historical baseline comparison reference.
+
+It must NOT be used for:
+  - feature selection
+  - threshold tuning
+  - model selection
+  - hyperparameter optimization
+
+2. FUTURE MODEL DEVELOPMENT
+----------------------------
+All model/cutoff/feature/threshold selection must happen using ONLY
+the current 2,560-patient training population via:
+
+    a. k-fold cross-validation (preferred, stratified, k=5 or k=10)
+    b. train/validation sub-split (if cross-validation is too slow)
+
+The development holdout may be used ONLY for a single final check
+after each major milestone to compare against the V1 baseline.
+
+3. FINAL EVALUATION
+--------------------
+Before any final project reporting:
+
+    Use a genuinely unexamined, suitably matched patient cohort if available,
+    with the prediction task and evaluation procedure fixed in advance.
+
+Creating a new split from patients whose data or results have already been
+examined does not make those patients an untouched final test set. Freezing a
+new split prevents further reuse, but does not erase earlier exposure.
+
+If no suitable unexamined cohort is available, report development results and
+their limitations honestly. Do not claim an untouched final evaluation.
+
+Any final evaluation cohort must not be used for model development decisions.
+
+4. REPORTING RULES
+-------------------
+  - Always report ROC-AUC and PR-AUC (not accuracy) as primary metrics.
+  - Always report confusion matrix and threshold used.
+  - Never claim diagnosis or causal prediction.
+  - State the actual target: death during the hospital stay.
+  - Describe uncalibrated outputs as model scores, not verified probabilities.
+  - Label saved results as historical when the assessment policy has changed.
+  - Document whether reported metrics are from CV, dev holdout, or final test.
+
+5. SPLIT METADATA
+------------------
+  - All splits must be saved with patient IDs and random_state.
+  - No patient may appear in both train and evaluation sets.
+  - Stratification by target label is mandatory.
+
+6. CHECKPOINT COVERAGE AND ELIGIBILITY
+-------------------------------------
+New development evaluation must apply the runtime minimum supported-observation
+guard to training and validation data and report how many patients are unscored.
+This is observation scoreability, not proof of clinical eligibility.
+
+Length_of_stay describes hospital stay, not ICU stay. Exact ICU exit/death times
+are unavailable, and local timing values have discrepancies requiring review.
+Do not silently infer event minutes from day-level outcomes, remove patients
+based on unverified event timing, or use later observations to gate earlier scores.
+
+Coverage/data-quality reporting of the separated cohort is not model-performance
+evaluation and must not guide model/cutoff/feature/threshold selection.
+
+7. CALIBRATION AND THRESHOLDS
+-----------------------------
+Fit all preprocessing and calibration steps within the training portion of each
+outer fold. For calibrated candidates, fit calibration from inner validation
+predictions, never the outer validation outcomes.
+
+Fixed historical thresholds may be reported as reference points. To select new
+thresholds and claim their measured performance, select within outer training
+data and evaluate on outer validation data. Evaluating a threshold on the same
+OOF results used to choose it is development tuning, not independent validation.
+
+Keep each patient's checkpoint sequence grouped for any joint alert evaluation.
+Report scoring coverage separately from risk/alert counts. Use calibration curves
+alongside prediction losses; a lower Brier loss alone is not proof of calibration.
+
+8. NESTED ALERT EXPERIMENT
+--------------------------
+Use 5 stratified outer folds on the full frozen development patient list before
+applying checkpoint-specific coverage masks. All three checkpoints of one patient
+belong to the same outer validation fold. The separated 640 patients are excluded.
+
+Select shared risk boundaries from 3-fold inner OOF predictions at the primary
+12h checkpoint within each outer training population. Calibration has its own
+3-fold inner CV inside every model fit. Outer validation labels never select
+thresholds or fit preprocessing/calibration.
+
+Predeclared engineering rules: fixed threshold grid 0.00..1.00 in steps of 0.01;
+medium recall floor 0.70 and high recall floor 0.30. Minimize false-positive rate
+among qualifying thresholds, then prefer precision and higher thresholds.
+Enforce medium < high. If a recall floor is infeasible, maximize recall within
+the ordering constraint and report the unmet floor. These are demonstration
+criteria, not medical requirements. Thresholds are shared across checkpoints.
+
+Compare raw/historical, calibrated/historical, raw/nested, calibrated/nested.
+The raw comparator is the final base forest from the same calibrated fit.
+Evaluate the existing persistence rule without tuning it on validation outcomes.
+The high risk boundary changes risk categories, not persistence alert counts.
+
+Report current and cumulative-prefix warnings, persistent high alerts, missing
+assessments, and death labels without assessments. Do not count missing scores
+as true negatives or false negatives. Also give the fraction of all death labels
+detected so missing cases remain visible. Survivor-label false positives are not
+proof of unnecessary clinical alarms. A warning checkpoint is not clinical lead
+time before an event. Save aggregate results only; keep predictions in memory.

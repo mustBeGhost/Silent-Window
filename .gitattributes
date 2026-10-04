@@ -1,0 +1,44 @@
+* text=auto
+*.py text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.css text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.joblib binary
+*.jpg binary
+*.png binary
+# Model bundles refer to the exact bytes of earlier bundle manifests.
+ml/artifacts/*manifest.json -text
+ml/artifacts/**/*manifest.json -text
+# These files are hashed as bytes by frozen model and cohort manifests.
+data/raw/dataset_2/train/** -text
+data/processed/baseline/split_metadata.json -text
+data/processed/evaluation_v3/*.json -text
+
+# Preserve exact training-source and evidence bytes required by the V4 bundle.
+data/processed/evaluation_v3/checkpoint_expansion_metrics.json -text
+ml/alert_evaluation.py -text
+ml/alert_policy.py -text
+ml/checkpoint_expansion.py -text
+ml/checkpoint_profiles.py -text
+ml/coverage.py -text
+ml/data_loader.py -text
+ml/evaluation.py -text
+ml/features.py -text
+ml/preprocessing.py -text
+ml/recall_experiments.py -text
+ml/threshold_analysis.py -text
+ml/train_models.py -text
+scripts/evaluate_checkpoint_expansion.py -text
+scripts/evaluate_nested_alerts.py -text
+scripts/evaluate_recall_targets.py -text
+scripts/evaluate_scoreable_models.py -text
+scripts/train_expanded_candidate.py -text
+scripts/train_rf_v2_artifacts.py -text
+ml/candidate_training.py -text
+ml/model_profiles.py -text
+scripts/train_calibrated_candidate.py -text

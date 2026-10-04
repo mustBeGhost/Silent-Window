@@ -1,0 +1,12 @@
+{
+  "source_url": "https://physionet.org/files/challenge-2012/1.0.0/Outcomes-a.txt",
+  "source_sha256": "2613ea60ccda29f87571a7d6b09ad130858a8ccd66325bd073365925026883c2",
+  "local_outcomes_sha256": "3b4aea44818aae82916add5f941dd481c5774f7491a3600eb89c37050d02dff3",
+  "local_rows": 3200,
+  "official_rows": 4000,
+  "matched_local_rows": 3200,
+  "local_ids_missing_from_official_source": [],
+  "mismatched_local_record_ids": [],
+  "all_local_outcome_rows_match_source": true,
+  "note": "This checks the outcome rows only, not observation-file provenance or exact clinical checkpoint eligibility. No data was replaced."
+}

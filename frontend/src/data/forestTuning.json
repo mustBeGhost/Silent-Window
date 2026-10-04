@@ -1,0 +1,393 @@
+{
+  "status": "EXPLORATORY_NESTED_DEVELOPMENT_ONLY_NOT_DEPLOYED",
+  "completed_at_utc": "2026-10-03T18:32:08.349894+00:00",
+  "development_patients": 2560,
+  "death_labels": 354,
+  "primary_checkpoint": "12h",
+  "training_recall_target": 0.85,
+  "candidate_definitions": {
+    "rf_v2": {
+      "label": "Current inputs \u00b7 depth 12, leaf 10",
+      "features": "v2",
+      "max_depth": 12,
+      "min_samples_leaf": 10,
+      "feature_count": 132,
+      "classifier_settings": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 12,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 10,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    "recent_reference": {
+      "label": "Recent inputs \u00b7 depth 12, leaf 10",
+      "features": "recent",
+      "max_depth": 12,
+      "min_samples_leaf": 10,
+      "feature_count": 228,
+      "classifier_settings": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 12,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 10,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    "recent_shallow": {
+      "label": "Recent inputs \u00b7 depth 8, leaf 10",
+      "features": "recent",
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "feature_count": 228,
+      "classifier_settings": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 8,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 10,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    "recent_larger_leaf": {
+      "label": "Recent inputs \u00b7 depth 12, leaf 20",
+      "features": "recent",
+      "max_depth": 12,
+      "min_samples_leaf": 20,
+      "feature_count": 228,
+      "classifier_settings": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 12,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 20,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    "recent_unlimited_depth": {
+      "label": "Recent inputs \u00b7 no depth limit, leaf 10",
+      "features": "recent",
+      "max_depth": null,
+      "min_samples_leaf": 10,
+      "feature_count": 228,
+      "classifier_settings": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": null,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 10,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 200,
+        "n_jobs": 1,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    }
+  },
+  "results": {
+    "coarse": {
+      "rf_v2": {
+        "any_warning": {
+          "tp": 311,
+          "fp": 1225,
+          "tn": 975,
+          "fn": 43,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8785310734463276,
+          "false_positive_rate_in_assessed_population": 0.5568181818181818,
+          "precision": 0.20247395833333334,
+          "fraction_of_all_death_labels_detected": 0.8785310734463276
+        },
+        "roc_auc": 0.7470595788392399,
+        "average_precision": 0.319699936230753,
+        "brier_score": 0.10750579636445723
+      },
+      "recent_reference": {
+        "any_warning": {
+          "tp": 310,
+          "fp": 1153,
+          "tn": 1047,
+          "fn": 44,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8757062146892656,
+          "false_positive_rate_in_assessed_population": 0.524090909090909,
+          "precision": 0.21189336978810663,
+          "fraction_of_all_death_labels_detected": 0.8757062146892656
+        },
+        "roc_auc": 0.7502696456086286,
+        "average_precision": 0.3207318585603699,
+        "brier_score": 0.10719292258528247
+      },
+      "recent_shallow": {
+        "any_warning": {
+          "tp": 312,
+          "fp": 1193,
+          "tn": 1007,
+          "fn": 42,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8813559322033898,
+          "false_positive_rate_in_assessed_population": 0.5422727272727272,
+          "precision": 0.20730897009966778,
+          "fraction_of_all_death_labels_detected": 0.8813559322033898
+        },
+        "roc_auc": 0.7486363636363637,
+        "average_precision": 0.3188731967638221,
+        "brier_score": 0.10740613797797562
+      },
+      "recent_larger_leaf": {
+        "any_warning": {
+          "tp": 312,
+          "fp": 1213,
+          "tn": 987,
+          "fn": 42,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8813559322033898,
+          "false_positive_rate_in_assessed_population": 0.5513636363636364,
+          "precision": 0.20459016393442622,
+          "fraction_of_all_death_labels_detected": 0.8813559322033898
+        },
+        "roc_auc": 0.7455778120184899,
+        "average_precision": 0.3122140874246645,
+        "brier_score": 0.10798152121148628
+      },
+      "recent_unlimited_depth": {
+        "any_warning": {
+          "tp": 306,
+          "fp": 1146,
+          "tn": 1054,
+          "fn": 48,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.864406779661017,
+          "false_positive_rate_in_assessed_population": 0.5209090909090909,
+          "precision": 0.21074380165289255,
+          "fraction_of_all_death_labels_detected": 0.864406779661017
+        },
+        "roc_auc": 0.7512776065742166,
+        "average_precision": 0.3260578836043819,
+        "brier_score": 0.10697668892457024
+      },
+      "training_selected": {
+        "any_warning": {
+          "tp": 312,
+          "fp": 1171,
+          "tn": 1029,
+          "fn": 42,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8813559322033898,
+          "false_positive_rate_in_assessed_population": 0.5322727272727272,
+          "precision": 0.21038435603506406,
+          "fraction_of_all_death_labels_detected": 0.8813559322033898
+        },
+        "roc_auc": 0.7493297380585516,
+        "average_precision": 0.31841862071095284,
+        "brier_score": 0.1073798536757988
+      }
+    },
+    "fine": {
+      "rf_v2": {
+        "any_warning": {
+          "tp": 303,
+          "fp": 1146,
+          "tn": 1054,
+          "fn": 51,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8559322033898306,
+          "false_positive_rate_in_assessed_population": 0.5209090909090909,
+          "precision": 0.20910973084886128,
+          "fraction_of_all_death_labels_detected": 0.8559322033898306
+        },
+        "roc_auc": 0.7470595788392399,
+        "average_precision": 0.319699936230753,
+        "brier_score": 0.10750579636445723
+      },
+      "recent_reference": {
+        "any_warning": {
+          "tp": 306,
+          "fp": 1125,
+          "tn": 1075,
+          "fn": 48,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.864406779661017,
+          "false_positive_rate_in_assessed_population": 0.5113636363636364,
+          "precision": 0.2138364779874214,
+          "fraction_of_all_death_labels_detected": 0.864406779661017
+        },
+        "roc_auc": 0.7502696456086286,
+        "average_precision": 0.3207318585603699,
+        "brier_score": 0.10719292258528247
+      },
+      "recent_shallow": {
+        "any_warning": {
+          "tp": 304,
+          "fp": 1130,
+          "tn": 1070,
+          "fn": 50,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8587570621468926,
+          "false_positive_rate_in_assessed_population": 0.5136363636363637,
+          "precision": 0.21199442119944212,
+          "fraction_of_all_death_labels_detected": 0.8587570621468926
+        },
+        "roc_auc": 0.7486363636363637,
+        "average_precision": 0.3188731967638221,
+        "brier_score": 0.10740613797797562
+      },
+      "recent_larger_leaf": {
+        "any_warning": {
+          "tp": 302,
+          "fp": 1140,
+          "tn": 1060,
+          "fn": 52,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8531073446327684,
+          "false_positive_rate_in_assessed_population": 0.5181818181818182,
+          "precision": 0.20943134535367544,
+          "fraction_of_all_death_labels_detected": 0.8531073446327684
+        },
+        "roc_auc": 0.7455778120184899,
+        "average_precision": 0.3122140874246645,
+        "brier_score": 0.10798152121148628
+      },
+      "recent_unlimited_depth": {
+        "any_warning": {
+          "tp": 297,
+          "fp": 1091,
+          "tn": 1109,
+          "fn": 57,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8389830508474576,
+          "false_positive_rate_in_assessed_population": 0.4959090909090909,
+          "precision": 0.21397694524495678,
+          "fraction_of_all_death_labels_detected": 0.8389830508474576
+        },
+        "roc_auc": 0.7512776065742166,
+        "average_precision": 0.3260578836043819,
+        "brier_score": 0.10697668892457024
+      },
+      "training_selected": {
+        "any_warning": {
+          "tp": 302,
+          "fp": 1101,
+          "tn": 1099,
+          "fn": 52,
+          "assessed_patients": 2554,
+          "unassessed_patients": 6,
+          "unassessed_death_labels": 0,
+          "recall_in_assessed_population": 0.8531073446327684,
+          "false_positive_rate_in_assessed_population": 0.5004545454545455,
+          "precision": 0.21525302922309336,
+          "fraction_of_all_death_labels_detected": 0.8531073446327684
+        },
+        "roc_auc": 0.7493297380585516,
+        "average_precision": 0.31841862071095284,
+        "brier_score": 0.1073798536757988
+      }
+    }
+  },
+  "research_promotion_gate": {
+    "passed": false,
+    "checks_against_current_inputs": {
+      "coarse": {
+        "no_fewer_detected": false,
+        "at_least_10_percent_fewer_survivor_warnings": true
+      },
+      "fine": {
+        "no_fewer_detected": false,
+        "at_least_10_percent_fewer_survivor_warnings": false
+      }
+    },
+    "is_clinical_standard": false
+  },
+  "selected_in_folds": [
+    "recent_unlimited_depth",
+    "recent_reference",
+    "recent_unlimited_depth",
+    "recent_shallow",
+    "recent_shallow"
+  ]
+}
