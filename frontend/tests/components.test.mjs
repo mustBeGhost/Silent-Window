@@ -1,14 +1,24 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 import React from 'react'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createServer } from 'vite'
 import { readFileSync } from 'node:fs'
 
+const createComponentServer = () => createServer({
+  server: { middlewareMode: true, hmr: false },
+  // Load the router and its providers together. Node versions can otherwise
+  // select a different package export from Vite's component loader.
+  ssr: {
+    noExternal: ['react-router', 'react-router-dom'],
+    resolve: { conditions: ['module', 'import'] },
+  },
+})
+
 test('assessment components render missing and future results safely', async (t) => {
-  const server = await createServer({ server: { middlewareMode: true, hmr: false } })
+  const server = await createComponentServer()
   try {
+    const { MemoryRouter, Route, Routes } = await server.ssrLoadModule('react-router-dom')
     const { default: AlertExplanation } = await server.ssrLoadModule('/src/components/AlertExplanation.jsx')
     const { default: RiskTrajectory } = await server.ssrLoadModule('/src/components/RiskTrajectory.jsx')
     const { default: Header } = await server.ssrLoadModule('/src/components/layout/Header.jsx')
@@ -159,8 +169,9 @@ test('assessment components render missing and future results safely', async (t)
 })
 
 test('role screens show the five agreed roles and appropriate navigation', async (t) => {
-  const server = await createServer({ server: { middlewareMode: true, hmr: false } })
+  const server = await createComponentServer()
   try {
+    const { MemoryRouter } = await server.ssrLoadModule('react-router-dom')
     const { AuthContext } = await server.ssrLoadModule('/src/context/Auth.jsx')
     const { default: Sidebar } = await server.ssrLoadModule('/src/components/layout/Sidebar.jsx')
     const { default: Login } = await server.ssrLoadModule('/src/pages/Login.jsx')
