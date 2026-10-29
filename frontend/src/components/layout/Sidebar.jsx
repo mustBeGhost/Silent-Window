@@ -5,6 +5,8 @@ import { useAuth } from '../../context/Auth'
 import { permissions } from '../../permissions'
 import { useRequestNotifications } from '../../context/RequestNotifications'
 
+import { useDoctorReviewNotifications } from '../../context/DoctorReviewNotifications'
+
 const navItems = [
   { label: 'Patient Queue', icon: '▰', to: '/' },
   { label: 'Model Performance', icon: '⌁', to: '/model-performance' },
@@ -13,8 +15,10 @@ const navItems = [
 export default function Sidebar() {
   const { user } = useAuth()
   const access = permissions(user?.role)
+  const reviews = useDoctorReviewNotifications()
   const { pendingCount, error: requestCountError } = useRequestNotifications()
   const links = [...navItems.filter((item) => item.to !== '/' || !user || access.patients),
+    ...(access.patients ? [{ label: 'My Shift', icon: '◷', to: '/my-shift' }, { label: 'Review Requests', icon: '◷', to: '/review-requests' }] : []),
     { label: 'My Account', icon: '◌', to: '/account' },
     ...(access.accounts ? [{ label: 'Account Requests', icon: '✓', to: '/requests' }, { label: 'Team Accounts', icon: '▤', to: '/team' }] : [])]
   const { modelProfile } = useModelProfile()
@@ -38,6 +42,8 @@ export default function Sidebar() {
             >
               <span aria-hidden="true">{item.icon}</span>
               <span>{item.label}</span>
+              {item.to === '/review-requests' && reviews.count > 0 && <span className="request-count" aria-label={`${reviews.count} open doctor review requests`}>{reviews.count}</span>}
+              {item.to === '/review-requests' && reviews.error && <span title={reviews.error}>?</span>}
               {item.to === '/requests' && pendingCount > 0 && <span className="request-count" aria-label={`${pendingCount} pending account requests`}>{pendingCount}</span>}
               {item.to === '/requests' && requestCountError && <span className="request-count" title={requestCountError} aria-label={requestCountError}>?</span>}
             </NavLink>

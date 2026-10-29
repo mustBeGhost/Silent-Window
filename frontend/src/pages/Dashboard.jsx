@@ -63,6 +63,7 @@ export default function Dashboard() {
   const [globalFlowKey, setGlobalFlowKey] = useState(0)
   const retryFailedBuild = useRef(false)
 
+  useEffect(() => { const refresh = () => setRequestKey(value => value + 1); window.addEventListener('silent-window-workspace-refresh', refresh); return () => window.removeEventListener('silent-window-workspace-refresh', refresh) }, [])
   const loadPatients = useCallback(() => {
     setRequestKey((value) => value + 1)
   }, [])

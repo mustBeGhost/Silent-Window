@@ -11,6 +11,11 @@ from backend.routes.patients import router as patients_router
 from backend.routes.models import router as models_router
 from backend.routes.accounts import router as accounts_router
 from backend.routes.workflow import router as workflow_router
+from backend.routes.clinical import router as clinical_router
+from backend.routes.shifts import router as shifts_router
+from backend.routes.live import router as live_router
+from backend.routes.history import router as history_router
+from backend.routes.reports import router as reports_router
 
 
 LOCAL_FRONTEND_ORIGINS = [
@@ -53,3 +58,11 @@ app.include_router(patients_router, prefix="/api")
 app.include_router(models_router, prefix="/api")
 app.include_router(accounts_router, prefix="/api")
 app.include_router(workflow_router, prefix="/api")
+app.include_router(clinical_router, prefix="/api")
+
+app.include_router(shifts_router, prefix="/api")
+
+app.include_router(live_router, prefix="/api")
+app.include_router(history_router, prefix="/api")
+
+app.include_router(reports_router, prefix="/api")

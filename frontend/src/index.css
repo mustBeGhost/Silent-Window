@@ -528,3 +528,71 @@ html { scroll-padding-top: calc(var(--header-height) + 16px); }
 .account-settings-grid p { line-height: 1.6; color: var(--text-soft); }
 .account-settings-grid .form-error { color: var(--red); }
 .account-settings-grid .form-success { color: var(--green); }
+/* Desktop clinical context follows the existing patient panel styles. */
+.clinical-workspace { margin-bottom: 24px; }
+.clinical-workspace h3 { margin-top: 28px; }
+.clinical-disclosure { border: 1px solid var(--border, #2d394f); border-radius: 8px; padding: 16px; margin-top: 16px; }
+.clinical-disclosure summary { cursor: pointer; color: #7bd0ff; font-weight: 600; }
+.clinical-disclosure[open] summary { margin-bottom: 18px; }
+.clinical-form { max-width: 100%; }
+.clinical-limit-grid { display: grid; grid-template-columns: repeat(3, minmax(180px, 1fr)); gap: 16px; }
+.clinical-limit-grid fieldset { border: 1px solid #2d394f; border-radius: 6px; padding: 12px; }
+.clinical-warnings { list-style: none; padding: 0; display: grid; gap: 10px; }
+.clinical-warnings li { border: 1px solid #2d394f; border-radius: 6px; padding: 14px; }
+.clinical-warnings span { display: block; margin-top: 6px; color: #aab8ca; }
+.clinical-warnings .clinical-limit-warning { border-color: #d49b42; background: #312819; }
+.clinical-filter { display: flex; align-items: center; gap: 16px; max-width: 550px; }
+.clinical-timeline p, .clinical-workspace dd { white-space: pre-wrap; overflow-wrap: anywhere; }
+.clinical-timeline { max-height: 560px; overflow-y: auto; padding-right: 12px; }
+.patient-section-nav { position: sticky; top: var(--header-height); z-index: 15; display: flex; flex-wrap: wrap; gap: 6px; padding: 10px; margin: 16px 0; background: #101725; border: 1px solid #2d394f; border-radius: 8px; box-shadow: 0 6px 18px #0003; }
+.patient-section-nav a { color: #aebdd2; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 13px; font-weight: 600; }
+.patient-section-nav a:hover, .patient-section-nav a:focus-visible { color: #7bd0ff; background: #20334b; }
+.patient-assessment-grid { margin-bottom: 20px; }
+.patient-page > .detail-grid > .model-information-section { grid-column: 1 / -1; }
+.patient-page [id^="patient-"], #admission-context-title { scroll-margin-top: calc(var(--header-height) + 70px); }
+.clinical-block { border: 1px solid #2a3547; border-radius: 9px; padding: 20px; margin-top: 20px; min-width: 0; background: #111722; }
+.clinical-block h3 { margin-top: 0; }
+.clinical-at-a-glance { display: grid; grid-template-columns: 1.15fr 1fr .85fr; gap: 12px; margin: 20px 0; }
+.clinical-at-a-glance > div { padding: 16px; border: 1px solid #2a3547; border-radius: 8px; background: #111722; }
+.clinical-at-a-glance span { display: block; color: #9aabc2; font-size: 12px; margin-bottom: 8px; }
+.clinical-at-a-glance strong { color: #e4ebf6; font-size: 16px; overflow-wrap: anywhere; }
+.clinical-warning-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.clinical-warning-columns .clinical-limit-grid { grid-template-columns: 1fr; }
+.clinical-warning-columns .clinical-limit-grid fieldset { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-width: 0; }
+.clinical-block .panel-heading { align-items: start; gap: 20px; }
+.clinical-block .panel-heading p { max-width: 640px; }
+.clinical-block .panel-heading label { min-width: 170px; display: grid; gap: 8px; color: #aebdd2; font-size: 13px; }
+.clinical-block select { background: #0b121d; color: #dfe2ef; border: 1px solid #344158; padding: 10px; border-radius: 5px; }
+.follow-up-counts { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+.follow-up-counts > span { border: 1px solid #344158; padding: 10px 14px; border-radius: 6px; color: #aebdd2; font-size: 13px; }
+.follow-up-counts strong { color: #e4ebf6; font-size: 18px; margin-right: 5px; }
+.follow-up-list { display: grid; gap: 14px; max-height: 660px; overflow-y: auto; padding-right: 5px; }
+.follow-up-card { background: #192130; border: 1px solid #344158; border-radius: 7px; padding: 18px; }
+.follow-up-card-heading { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
+.follow-up-card-heading > strong { white-space: pre-wrap; overflow-wrap: anywhere; }
+.follow-up-status { flex-shrink: 0; font-size: 12px; padding: 6px 9px; border-radius: 5px; }
+.follow-up-pending { background: #3b301b; color: #ffd18a; }
+.follow-up-completed { background: #12362c; color: #6fe0b6; }
+.follow-up-audit { padding: 12px; border-left: 3px solid #56b99b; background: #101c25; margin-top: 12px; }
+.follow-up-audit span { display: block; font-size: 12px; color: #aebdd2; margin-top: 7px; }
+.follow-up-audit p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.clinical-empty { padding: 22px; border: 1px dashed #344158; border-radius: 6px; color: #aebdd2; line-height: 1.6; }
+@media (min-width: 1100px) { .clinical-vitals-block > .vital-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Laptop shift workspace. Recorded-time reminders remain separate from model alerts. */
+.my-shift > .panel, .my-shift > details { margin-top: 20px; }
+.shift-toolbar { display: flex; align-items: end; flex-wrap: wrap; gap: 14px; margin: 18px 0; }
+.shift-toolbar label { display: grid; gap: 8px; color: var(--text-soft); font-size: 13px; }
+.shift-toolbar input, .shift-toolbar select, .my-shift select, .my-shift input { background: #0b121d; border: 1px solid #344158; border-radius: 5px; color: var(--text); padding: 10px; max-width: 100%; }
+.shift-toolbar > span { max-width: 480px; color: var(--text-soft); font-size: 13px; }
+.shift-stats { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin: 20px 0; }
+.shift-stats .panel { display: grid; gap: 10px; }
+.shift-stats strong { color: var(--blue); font-size: 30px; }
+.shift-stats span, .patient-export span { color: var(--text-soft); font-size: 13px; }
+.shift-due, .shift-reminder { border-left: 4px solid #f7b955; }
+.shift-reminder { background: #3a2d19; color: #f5d28c; padding: 14px; }
+.shift-patient-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.shift-patient-links a { padding: 10px; background: #152238; border-radius: 5px; }
+.patient-export { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
+#patient-history-search p, #patient-shift-handover p { overflow-wrap: anywhere; white-space: pre-wrap; }
+.my-shift .clinical-block p { white-space: pre-wrap; overflow-wrap: anywhere; }

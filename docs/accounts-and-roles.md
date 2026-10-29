@@ -75,7 +75,7 @@ server, run the following once from the repository folder:
 Enter the administrator password in the local terminal prompt. Setup refuses
 to overwrite schemas that already have tables or change a pre-existing account
 with the same name. It creates the project and isolated test schemas, initializes
-schema version 3, and gives the app/test accounts only SELECT, INSERT, UPDATE
+schema version 5, and gives the app/test accounts only SELECT, INSERT, UPDATE
 and DELETE privileges on their respective schemas. They cannot create tables.
 
 The generated connection URLs are stored in an ignored `.env` file. Use
@@ -141,14 +141,14 @@ Approval inserts a user with the worker's chosen password hash and administrator
 
 Rejected workers can submit a new request, preserving the previous decision in history. Existing user accounts, including disabled ones, continue to reserve their usernames. Pending and rejected workers cannot sign in or access protected data. Approved doctors and nurses still require patient assignments. **Team Accounts** manages approved accounts; the old direct-creation API is closed.
 
-For an existing version-1 or version-2 database, run this additive migration with MySQL administrator access:
+For an existing version-1, version-2, version-3 or version-4 database, run this additive migration with MySQL administrator access:
 
 ```powershell
 .venv\Scripts\python.exe -m scripts.migrate_accounts --host 127.0.0.1 --port 3306 --username root
 ```
 
-It adds missing `permission` and `password_resets` tables to the project and
-isolated test schemas, then advances the schema version to 3. Existing users,
+It adds missing approval, recovery and clinical-context tables to the project and
+isolated test schemas, then advances the schema version to 4. Existing users,
 passwords, sessions, assignments and patient notes are preserved. It can be run
 again safely and never saves the administrator password.
 

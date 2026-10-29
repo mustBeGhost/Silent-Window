@@ -25,6 +25,7 @@ export default function PatientWorkflow({ patient, modelProfile }) {
       .catch((failure) => { if (failure.name !== 'AbortError') setError(failure.message) })
     return () => controller.abort()
   }, [user?.id, patient.patient_id, modelProfile, patient.available_through_minutes, access.unit, retry])
+  useEffect(() => { const refresh = () => setRetry(value => value + 1); window.addEventListener('silent-window-workflow-changed', refresh); return () => window.removeEventListener('silent-window-workflow-changed', refresh) }, [])
   async function note(event) {
     event.preventDefault(); setBusy(true); setError(null); setMessage(null)
     const form = event.currentTarget
@@ -32,17 +33,18 @@ export default function PatientWorkflow({ patient, modelProfile }) {
     try {
       await addPatientEvent(patient.patient_id, { model_profile: modelProfile, checkpoint: values.get('checkpoint'), event_type: values.get('event_type'), content: values.get('content') })
       form.reset(); setMessage('Your note has been saved.'); setRetry((value) => value + 1)
+      window.dispatchEvent(new Event('silent-window-workflow-changed'))
     } catch (failure) { setError(failure.message) }
     finally { setBusy(false) }
   }
   if (!user) return null
-  return <section className="panel patient-workflow"><div className="panel-heading"><div><h2>Team and review history</h2><p>Notes refer to this model and its recorded checkpoints. They do not change readings, model scores, or alert states.</p></div></div>
+  return <section id="patient-team" className="panel patient-workflow"><div className="panel-heading"><div><h2>Team and review history</h2><p>Notes refer to this model and its recorded checkpoints. They do not change readings, model scores, or alert states.</p></div></div>
     {error && <p role="alert" className="form-error">{error} <button type="button" onClick={() => setRetry((value) => value + 1)}>Retry</button></p>}
     {message && <p role="status" className="form-success">{message}</p>}
     {!data && !error && <p role="status">Loading patient team…</p>}
     {data && <>
       <PatientTeam key={patient.patient_id} patientId={patient.patient_id} assignments={data.assignments} staff={staff} canEdit={access.unit}
-        onSaved={(assignments, text) => { setData((previous) => previous?.patient_id === patient.patient_id ? { ...previous, assignments } : previous); setMessage(text) }} />
+        onSaved={(assignments, text) => { setData((previous) => previous?.patient_id === patient.patient_id ? { ...previous, assignments } : previous); setMessage(text); window.dispatchEvent(new Event('silent-window-workflow-changed')) }} />
       {access.events.length > 0 && readyPoints.length > 0 && <form className="account-form" onSubmit={note}>
         <h3>Add a review entry</h3><label>Entry type<select name="event_type" defaultValue={access.events[0]}>{access.events.map((type) => <option key={type} value={type}>{EVENT_LABELS[type]}</option>)}</select></label>
         <label>Assessment checkpoint<select name="checkpoint" defaultValue={readyPoints.some((point) => point.checkpoint === '12h') ? '12h' : readyPoints.at(-1).checkpoint}>{readyPoints.map((point) => <option key={point.checkpoint} value={point.checkpoint}>{point.checkpoint} · {point.alert_state.replaceAll('_', ' ')}</option>)}</select></label>

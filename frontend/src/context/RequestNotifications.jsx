@@ -3,6 +3,7 @@ import { useAuth } from './Auth'
 import { getRequestSummary } from '../services/accounts'
 import { RequestNotifications } from '../utils/requestNotifications'
 
+import { isLiveConnected } from '../utils/liveStatus'
 const empty = { pendingCount: null, notice: null, error: null }
 export const RequestNotificationContext = createContext({ ...empty, dismiss: () => {}, refresh: () => {} })
 export const useRequestNotifications = () => useContext(RequestNotificationContext)
@@ -18,7 +19,7 @@ export function RequestNotificationProvider({ children }) {
     let seenId = 0
     try { seenId = Number(sessionStorage.getItem(key)) || 0 } catch { /* Use memory if browser storage is disabled. */ }
     const poller = new RequestNotifications({ load: getRequestSummary, seenId,
-      onSeen: (value) => sessionStorage.setItem(key, String(value)), isVisible: () => !document.hidden })
+      onSeen: (value) => sessionStorage.setItem(key, String(value)), isVisible: () => !document.hidden && !isLiveConnected() })
     controller.current = poller
     const unsubscribe = poller.subscribe(() => setState(poller.getSnapshot()))
     const refresh = () => poller.refresh()

@@ -68,7 +68,7 @@ def included(path: Path) -> bool:
     if path.parts[0] == 'frontend':
         return path.suffix in {'.js', '.jsx', '.mjs', '.css', '.html', '.json'}
     if path.parts[0] == 'docs':
-        return path.suffix == '.md' or name == 'docs/images/account-security-preview.jpg'
+        return path.suffix == '.md' or name in {'docs/images/account-security-preview.jpg', 'docs/images/shift-dashboard.jpg', 'docs/images/patient-overview.jpg', 'docs/images/model-evaluation.jpg'}
     if name == 'data/raw/DATASET.md':
         return True
     if name.startswith('data/raw/dataset_2/train/'):

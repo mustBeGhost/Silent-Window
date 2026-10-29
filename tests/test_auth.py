@@ -27,7 +27,7 @@ def store(tmp_path, monkeypatch, request):
     if request.param == "mysql":
         with database.db() as db:
             db.execute("BEGIN IMMEDIATE")
-            for name in ("password_resets", "permission", "patient_events", "assignments", "account_events", "sessions", "attempts", "users"):
+            for name in ("handover_events", "handovers", "availability_events", "doctor_review_events", "doctor_review_requests", "follow_up_events", "vital_rule_versions", "clinical_entries", "patient_contexts", "password_resets", "permission", "patient_events", "assignments", "account_events", "sessions", "attempts", "users"):
                 db.execute(f"DELETE FROM {name}")
     _, principal = database.setup("owner", "Test Owner", PASSWORD)
     database.owner_id = principal.user["id"]
@@ -236,7 +236,7 @@ def test_first_setup_race_creates_exactly_one_administrator(store):
     # Only the already-isolated test store is cleared here.
     with store.db() as db:
         db.execute("BEGIN IMMEDIATE")
-        for name in ("permission", "patient_events", "assignments", "account_events", "sessions", "attempts", "users"):
+        for name in ("handover_events", "handovers", "availability_events", "doctor_review_events", "doctor_review_requests", "follow_up_events", "vital_rule_versions", "clinical_entries", "patient_contexts", "password_resets", "permission", "patient_events", "assignments", "account_events", "sessions", "attempts", "users"):
             db.execute(f"DELETE FROM {name}")
     def create(username):
         try:

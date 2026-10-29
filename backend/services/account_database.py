@@ -9,7 +9,7 @@ from sqlalchemy import (CheckConstraint, Column, Float, ForeignKey, Index, Integ
                         MetaData, String, Table, Text, create_engine, event, text)
 from sqlalchemy.engine import URL, make_url
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 7
 metadata = MetaData()
 table_options = {"mysql_engine": "InnoDB", "mysql_charset": "utf8mb4", "mysql_collate": "utf8mb4_bin"}
 
@@ -67,6 +67,68 @@ Index("ix_assignments_user", assignments.c.user_id)
 Index("ix_patient_events_patient_model", patient_events.c.patient_id, patient_events.c.model_profile, patient_events.c.id)
 Index("ix_permission_username_status", permission.c.username, permission.c.status)
 Index("ix_permission_status_created", permission.c.status, permission.c.created_at)
+
+# Append-only demonstration records; none of these fields feed model inference.
+patient_contexts = table("patient_contexts", Column("id", Integer, primary_key=True),
+    Column("patient_id", String(32), nullable=False), Column("minute", Integer, nullable=False),
+    Column("diagnosis", String(300), nullable=False), Column("admission_reason", Text, nullable=False),
+    Column("condition_summary", Text, nullable=False), Column("admission_severity", String(100), nullable=False),
+    Column("specialty", String(100), nullable=False), Column("physician_id", Integer, ForeignKey("users.id")),
+    Column("actor_id", Integer, ForeignKey("users.id"), nullable=False), Column("created_at", Float(precision=53), nullable=False))
+clinical_entries = table("clinical_entries", Column("id", Integer, primary_key=True),
+    Column("patient_id", String(32), nullable=False), Column("minute", Integer, nullable=False),
+    Column("kind", String(20), nullable=False), Column("assessment", Text, nullable=False),
+    Column("plan", Text, nullable=False), Column("follow_up", Text, nullable=False),
+    Column("escalation", Text, nullable=False), Column("review_minute", Integer),
+    Column("actor_id", Integer, ForeignKey("users.id"), nullable=False), Column("actor_role", String(16), nullable=False),
+    Column("created_at", Float(precision=53), nullable=False))
+vital_rule_versions = table("vital_rule_versions", Column("id", Integer, primary_key=True),
+    Column("patient_id", String(32), nullable=False), Column("minute", Integer, nullable=False),
+    Column("rules_json", Text, nullable=False), Column("actor_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("created_at", Float(precision=53), nullable=False))
+for clinical_table in (patient_contexts, clinical_entries, vital_rule_versions):
+    Index("ix_" + clinical_table.name + "_patient_time", clinical_table.c.patient_id, clinical_table.c.minute, clinical_table.c.id)
+
+follow_up_events = table("follow_up_events", Column("id", Integer, primary_key=True),
+    Column("entry_id", Integer, ForeignKey("clinical_entries.id"), nullable=False),
+    Column("minute", Integer, nullable=False), Column("status", String(16), nullable=False),
+    Column("content", Text, nullable=False), Column("actor_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("actor_role", String(16), nullable=False), Column("created_at", Float(precision=53), nullable=False),
+    CheckConstraint("status IN ('pending','completed')", name="ck_follow_up_status"))
+Index("ix_follow_up_entry_time", follow_up_events.c.entry_id, follow_up_events.c.minute, follow_up_events.c.id)
+
+doctor_review_requests = table("doctor_review_requests", Column("id", Integer, primary_key=True),
+    Column("entry_id", Integer, ForeignKey("clinical_entries.id"), nullable=False, unique=True))
+doctor_review_events = table("doctor_review_events", Column("id", Integer, primary_key=True),
+    Column("request_id", Integer, ForeignKey("doctor_review_requests.id"), nullable=False),
+    Column("minute", Integer, nullable=False), Column("status", String(16), nullable=False),
+    Column("content", Text, nullable=False), Column("actor_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("actor_role", String(16), nullable=False), Column("created_at", Float(precision=53), nullable=False),
+    CheckConstraint("status IN ('pending','acknowledged','resolved')", name="ck_doctor_review_status"))
+Index("ix_doctor_review_request_time", doctor_review_events.c.request_id, doctor_review_events.c.minute, doctor_review_events.c.id)
+
+
+availability_events = table("availability_events", Column("id", Integer, primary_key=True),
+    Column("user_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("status", String(16), nullable=False), Column("note", String(300), nullable=False),
+    Column("actor_id", Integer, ForeignKey("users.id"), nullable=False), Column("created_at", Float(precision=53), nullable=False),
+    CheckConstraint("status IN ('on_duty','off_duty','unavailable')", name="ck_availability_status"))
+Index("ix_availability_user", availability_events.c.user_id, availability_events.c.id)
+handovers = table("handovers", Column("id", Integer, primary_key=True),
+    Column("patient_id", String(32), nullable=False), Column("minute", Integer, nullable=False),
+    Column("from_id", Integer, ForeignKey("users.id"), nullable=False), Column("to_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("actor_id", Integer, ForeignKey("users.id"), nullable=False), Column("staff_role", String(16), nullable=False),
+    Column("summary", Text, nullable=False), Column("tasks_json", Text, nullable=False),
+    Column("created_at", Float(precision=53), nullable=False))
+Index("ix_handovers_patient", handovers.c.patient_id, handovers.c.id)
+Index("ix_handovers_recipient", handovers.c.to_id, handovers.c.id)
+handover_events = table("handover_events", Column("id", Integer, primary_key=True),
+    Column("handover_id", Integer, ForeignKey("handovers.id"), nullable=False),
+    Column("status", String(16), nullable=False), Column("minute", Integer, nullable=False),
+    Column("content", Text, nullable=False), Column("actor_id", Integer, ForeignKey("users.id"), nullable=False),
+    Column("created_at", Float(precision=53), nullable=False),
+    CheckConstraint("status IN ('accepted','declined','cancelled')", name="ck_handover_status"))
+Index("ix_handover_events", handover_events.c.handover_id, handover_events.c.id)
 
 
 class Row(dict):

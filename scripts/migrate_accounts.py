@@ -1,22 +1,24 @@
-"""Add approval and recovery tables without replacing accounts or sessions."""
+"""Add account and clinical tables without replacing accounts or sessions."""
 import argparse
 import getpass
 import sys
 from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.engine import URL
-from backend.services.account_database import metadata, permission, password_resets, SCHEMA_VERSION
+from backend.services.account_database import (metadata, permission, password_resets, SCHEMA_VERSION,
+    patient_contexts, clinical_entries, vital_rule_versions, follow_up_events, doctor_review_requests, doctor_review_events, availability_events, handovers, handover_events)
 
 
 def migrate(engine):
     inspector = inspect(engine)
     tables = set(inspector.get_table_names())
-    if not (set(metadata.tables) - {'permission', 'password_resets'}).issubset(tables):
+    additions = (permission, password_resets, patient_contexts, clinical_entries, vital_rule_versions, follow_up_events, doctor_review_requests, doctor_review_events, availability_events, handovers, handover_events)
+    if not (set(metadata.tables) - {table.name for table in additions}).issubset(tables):
         raise RuntimeError('This is not an initialized Silent Window account database.')
     with engine.connect() as connection:
         version = list(connection.execute(text('SELECT version FROM schema_version')).scalars())
-    if version not in ([1], [2], [SCHEMA_VERSION]):
+    if version not in ([1], [2], [3], [4], [5], [6], [SCHEMA_VERSION]):
         raise RuntimeError('Unsupported account schema version.')
-    for table in (permission, password_resets):
+    for table in additions:
         table.create(engine, checkfirst=True)
         if {column['name'] for column in inspect(engine).get_columns(table.name)} != set(table.c.keys()):
             raise RuntimeError(f'The {table.name} table does not match the expected schema.')
@@ -45,7 +47,7 @@ def main():
                     after = connection.execute(text('SELECT COUNT(*) FROM users')).scalar_one()
                 if before != after:
                     raise RuntimeError('User count changed during migration; inspect concurrent writes.')
-                print(f'{name}: schema {SCHEMA_VERSION}, approval and recovery tables ready, {after} existing users preserved.')
+                print(f'{name}: schema {SCHEMA_VERSION}, account and clinical tables ready, {after} existing users preserved.')
             finally:
                 engine.dispose()
     except Exception:

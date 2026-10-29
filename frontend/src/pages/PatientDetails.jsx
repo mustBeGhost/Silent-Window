@@ -1,26 +1,32 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 
 import AlertBadge from '../components/AlertBadge'
 import AlertExplanation from '../components/AlertExplanation'
 import RiskBadge from '../components/RiskBadge'
 import RiskTrajectory from '../components/RiskTrajectory'
-import VitalChart from '../components/VitalChart'
 import { getPatientDetail, modelCheckpoints } from '../services/api'
 import { assessmentLabel, formatScore } from '../utils/assessment'
 import { useModelProfile } from '../context/ModelProfile'
-import { RecordedReplay } from '../utils/replay'
+import { RecordedReplay, formatReplayTime } from '../utils/replay'
 import RecordedReplayControls from '../components/RecordedReplay'
 import PatientWorkflow from '../components/PatientWorkflow'
 import { useAuth } from '../context/Auth'
+import ClinicalWorkspace from '../components/ClinicalWorkspace'
+import PatientHistory from '../components/PatientHistory'
+import PatientHandover from '../components/PatientHandover'
+import PatientPdf from '../components/PatientPdf'
 
 export default function PatientDetails() {
   const { modelProfile } = useModelProfile()
   const { patientId } = useParams()
-  return <PatientSession key={`${modelProfile}:${patientId}`} patientId={patientId} modelProfile={modelProfile} />
+  const [params] = useSearchParams()
+  const raw = params.get('as_of_minutes')
+  const initialMinute = raw !== null && /^\d+$/.test(raw) && Number(raw) <= 1440 ? Number(raw) : 1440
+  return <PatientSession key={`${modelProfile}:${patientId}:${initialMinute}`} patientId={patientId} modelProfile={modelProfile} initialMinute={initialMinute} />
 }
 
-function PatientSession({ patientId, modelProfile }) {
+function PatientSession({ patientId, modelProfile, initialMinute }) {
   const { user } = useAuth()
   const calibrated = modelProfile !== 'original'
   const checkpoints = modelCheckpoints(modelProfile)
@@ -38,13 +44,18 @@ function PatientSession({ patientId, modelProfile }) {
   </details>
 
   useEffect(() => {
-    session.seek(1440)
+    session.seek(initialMinute)
     const pauseWhenHidden = () => { if (document.hidden && session.getSnapshot().playing) session.pause() }
     document.addEventListener('visibilitychange', pauseWhenHidden)
     return () => {
       document.removeEventListener('visibilitychange', pauseWhenHidden)
       session.pause({ abortLoading: true })
     }
+  }, [session, initialMinute])
+  useEffect(() => {
+    const refresh = () => session.retry()
+    window.addEventListener('silent-window-workspace-refresh', refresh)
+    return () => window.removeEventListener('silent-window-workspace-refresh', refresh)
   }, [session])
 
   if (!patient && !error) {
@@ -59,7 +70,7 @@ function PatientSession({ patientId, modelProfile }) {
       </div>
     )
   }
-  if (!patient && error) {
+  if ((!patient || error?.status === 403) && error) {
     const notFound = error?.status === 404
     const backendResponded = Number.isInteger(error?.status)
     return (
@@ -81,7 +92,6 @@ function PatientSession({ patientId, modelProfile }) {
     )
   }
 
-  const viewHours = patient.available_through_minutes / 60
 
   return (
     <div className="page patient-page">
@@ -105,11 +115,11 @@ function PatientSession({ patientId, modelProfile }) {
             <span className="identity-chip">{patient.icu_type}</span>
             <span className="identity-chip">Primary checkpoint: {patient.primary_checkpoint}</span>
           </div>
-          <p>Historical patient record viewed through hour {viewHours}. This is not a live hospital feed.</p>
+          <p>Historical patient record viewed through {formatReplayTime(patient.available_through_minutes)} after admission. This is not a live hospital feed.</p>
         </div>
       </section>
 
-      <section className={`risk-hero risk-hero-${patient.risk_level?.toLowerCase() || 'not_assessed'}`}>
+      <section id="patient-risk-overview" className={`risk-hero risk-hero-${patient.risk_level?.toLowerCase() || 'not_assessed'}`}>
         <div className="current-risk-block">
           <span className="section-kicker">Hospital-death risk model score (0–1)</span>
           <div className="hero-risk-value">{patient.assessment_status === 'READY' ? formatScore(patient.risk_probability) : assessmentLabel(patient.assessment_status)}</div>
@@ -136,24 +146,19 @@ function PatientSession({ patientId, modelProfile }) {
         </div>
       </section>
 
+      <nav className="patient-section-nav" aria-label="Patient page sections">
+        <a href="#patient-risk-overview">Risk overview</a><a href="#patient-clinical-context">Clinical context</a><a href="#patient-review-requests">Doctor reviews</a><a href="#patient-follow-ups">Follow-ups</a><a href="#patient-vitals">Vitals</a><a href="#patient-warning-review">Warning review</a><a href="#patient-team">Team & notes</a><a href="#patient-timeline">Timeline</a><a href="#patient-history-search">Search history</a><a href="#patient-shift-handover">Shift handover</a>
+      </nav>
+      <div className="detail-grid patient-assessment-grid"><RiskTrajectory points={patient.risk_trajectory} /><AlertExplanation checkpoints={patient.risk_trajectory} /></div>
       {controls}
 
+      <PatientPdf patientId={patient.patient_id} minute={patient.available_through_minutes} modelProfile={modelProfile} />
+      <ClinicalWorkspace key={`${patient.patient_id}:${patient.available_through_minutes}:${modelProfile}`} patient={patient} modelProfile={modelProfile} />
+      <PatientHandover key={`handover:${patient.patient_id}:${patient.available_through_minutes}`} patientId={patient.patient_id} minute={patient.available_through_minutes} />
+      <PatientHistory key={`history:${patient.patient_id}:${patient.available_through_minutes}`} patientId={patient.patient_id} minute={patient.available_through_minutes} />
       <PatientWorkflow key={patient.patient_id} patient={patient} modelProfile={modelProfile} />
 
       <div className="detail-grid">
-        <RiskTrajectory points={patient.risk_trajectory} />
-        <AlertExplanation checkpoints={patient.risk_trajectory} />
-
-        <section className="panel vital-section">
-          <div className="panel-heading">
-            <div><h2>Clinical Observations</h2><p>Recorded measurements through hour {viewHours}. No measurements are added to fill gaps.</p></div>
-            <span className="info-chip">Observed data</span>
-          </div>
-          <div className="vital-grid">
-            {patient.vital_histories.map((series) => <VitalChart key={series.parameter} {...series} availableThroughMinutes={patient.available_through_minutes} />)}
-          </div>
-          <p className="panel-footnote">Charts use only timestamps and values returned by the patient-detail API.</p>
-        </section>
 
         <section className="panel model-information-section">
           <div className="panel-heading">

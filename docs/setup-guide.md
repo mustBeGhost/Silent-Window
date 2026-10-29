@@ -83,13 +83,13 @@ schema, and restricted database accounts. It saves only restricted account
 connection URLs in an ignored `.env` file. The website does not run as root.
 Other schemas on the server are untouched. Do not copy `.env` into GitHub.
 
-For an existing version-1 or version-2 database, stop the backend, then run:
+For an existing version-1, version-2, version-3 or version-4 database, stop the backend, then run:
 
 ```powershell
 .venv\Scripts\python.exe -m scripts.migrate_accounts --host 127.0.0.1 --port 3306 --username root
 ```
 
-This adds missing approval/recovery tables and advances to schema 3. Existing
+This adds missing approval/recovery and clinical-context tables and advances to schema 5. Existing
 accounts, passwords, sessions, assignments and notes are preserved. Restart the
 backend afterward. Fresh installations already use the current schema.
 
@@ -181,3 +181,22 @@ npm run dev -- --host 127.0.0.1 --port 5173 --strictPort
 Open `http://127.0.0.1:5173/` and create your own administrator. Stop each server
 with Ctrl+C. These manual commands use the same Python source and pinned
 dependencies; the full installation verification was performed on Windows.
+
+
+## Updating an existing installation for shift workflows
+
+Stop the local project servers, reinstall requirements.txt using the constraints in
+requirements-lock.txt (this adds PDF export support), then run:
+
+```powershell
+.venv\Scripts\python.exe -m scripts.migrate_accounts
+.venv\Scripts\python.exe -m scripts.check_installation
+```
+
+The migration prompts privately for the local MySQL administrator password and adds
+schema-7 tables without replacing accounts or notes. Restart the normal launcher.
+Open My Shift and set your own availability; existing accounts start Not set.
+See workflow-upgrades.md for handover, reminders, history and PDF instructions.
+SSE live website updates use the existing authenticated API and require no paid key.
+The separate Set B downloads are optional research inputs and are not needed to run
+any website page; aggregate evaluation results are included in the project.

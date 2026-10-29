@@ -3,6 +3,9 @@
 An ICU research dashboard with patient risk assessments, staff accounts and team workflows.
 Built with **React, FastAPI, MySQL and scikit-learn**.
 
+Continuing this project in another chat or on another laptop? Start with the
+[complete project handover](docs/PROJECT_HANDOVER.md).
+
 The saved models estimate **death during the hospital stay** from recorded patient
 measurements. Scores are research outputs, not verified individual death probabilities.
 This is a portfolio demonstration using public historical data, not a live hospital system.
@@ -18,8 +21,29 @@ This is a portfolio demonstration using public historical data, not a live hospi
 - Historical replay with play, pause, speed and reset controls.
 - Account preferences, password visibility, password change and assisted recovery.
 - Backend permission checks, hashed passwords and restricted MySQL access.
+- Separate invasive/cuff BP histories, staff-entered admission context and responsible doctor.
+- Structured demonstration visit notes, follow-up plans and a patient timeline.
+- Doctor-entered vital warning limits kept separate from mortality-model alerts.
+- My Shift dashboard, recorded-time follow-up reminders and staff availability.
+- Confirmed doctor/nurse shift handovers with captured tasks and assignment transfer.
+- Searchable staff history, permission-checked PDF summaries and live website updates.
+- Fixed-policy evaluation on 4,000 additional public patients, with missed cases and survivor warnings shown separately.
 
 The interface currently focuses on laptop screens.
+
+## Screenshots
+
+These screens use fictional staff accounts and notes in an isolated preview.
+The public patient observations remain recorded research data.
+
+![Patient risk overview](docs/images/patient-overview.jpg)
+
+![My Shift dashboard and review notification](docs/images/shift-dashboard.jpg)
+
+![Separate-patient model evaluation](docs/images/model-evaluation.jpg)
+
+For a short demonstration and resume wording, see the
+[demo and resume guide](docs/demo-and-resume.md).
 
 ## Quick start on Windows
 
@@ -86,13 +110,18 @@ See [dataset attribution and provenance](data/raw/DATASET.md).
 Checkpoints mean hours **after ICU admission**, not predictions for the next
 6, 12 or 24 hours. Recorded replay is not live streaming. Alert thresholds are
 research rules. Higher detection can also produce more survivor warnings.
-The research candidates did not meet every promotion criterion; independent
-validation remains necessary. Do not use the saved scores for patient care.
+The research candidates did not meet every promotion criterion; independent-hospital and prospective
+validation remain necessary. Do not use the saved scores for patient care.
 
 See [prediction task](docs/prediction-task.md),
 [data quality and evaluation](docs/data-quality-and-evaluation.md),
 [model comparison](docs/model-improvement-comparison.md) and
 [checkpoint expansion](docs/checkpoint-expansion.md).
+
+See [clinical context enhancements](docs/clinical-enhancements.md) for the new patient
+sections and role permissions. See [shift workflows and exports](docs/workflow-upgrades.md)
+for schema-7 migration and [separate-patient evaluation](docs/separate-patient-evaluation.md)
+for the new model results.
 
 ## Accounts and sharing
 

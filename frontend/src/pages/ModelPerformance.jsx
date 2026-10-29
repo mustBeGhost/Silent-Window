@@ -11,6 +11,8 @@ import {
   YAxis,
 } from 'recharts'
 
+import SeparatePatients from '../components/SeparatePatients'
+import separateReport from '../data/separatePatients.json'
 import performanceData from '../data/modelPerformance.json'
 import recallReport from '../data/recallExperiments.json'
 import improvementReport from '../data/modelImprovements.json'
@@ -80,6 +82,7 @@ export default function ModelPerformance() {
         </dl>
       </section>
 
+      <SeparatePatients report={separateReport} />
       <CheckpointExpansion report={checkpointReport} />
       <ForestTuning report={forestReport} />
       <ModelImprovements report={improvementReport} />
@@ -211,7 +214,7 @@ export default function ModelPerformance() {
 
       <footer className="information-footer">
         <strong>Development 5-fold cross-validation · Development cohort: 2,560 patients</strong>
-        <span>Primary checkpoint: 12h · No independent test-set claim</span>
+        <span>Primary checkpoint: 12h · Development charts and separate Set B results are labelled by section</span>
       </footer>
     </div>
   )

@@ -286,3 +286,46 @@ test('role screens show the five agreed roles and appropriate navigation', async
     })
   } finally { await server.close() }
 })
+
+test('doctor requests expose response controls only to doctors and reopening to staff', async () => {
+  const server = await createComponentServer()
+  try {
+    const { default: DoctorReviews } = await server.ssrLoadModule('/src/components/DoctorReviews.jsx')
+    const data = { items: [{request_id: 1, minute: 360, status: 'pending', event_id: 0, author: 'Fictional Nurse', created_at: 1800000000, assigned_doctor_count: 1, reason: 'Demo review'}], counts: {pending: 1, acknowledged: 0, resolved: 0, unassigned: 0}, history: [], truncated: false }
+    const render = (role) => renderToStaticMarkup(React.createElement(DoctorReviews, {data, minute: 1440, role, busy: false, onSave: () => {}}))
+    assert.match(render('doctor'), /Acknowledge request/)
+    assert.doesNotMatch(render('nurse'), /Acknowledge request|Resolve request/)
+    assert.doesNotMatch(render('admin'), /Save doctor review request|Acknowledge request|Reopen request/)
+    data.items[0].status = 'resolved'
+    assert.match(render('nurse'), /Reopen request/)
+    data.counts.unassigned = 1
+    assert.match(render('coordinator'), /no active assigned doctor/)
+  } finally { await server.close() }
+})
+
+test('shift handover controls require the right participant and show captured work', async () => {
+  const server=await createComponentServer()
+  try {
+    const {default:HandoverCards}=await server.ssrLoadModule('/src/components/HandoverCards.jsx')
+    const item={id:1,event_id:0,patient_id:'ICU-1001',status:'pending',staff_role:'doctor',from_id:2,to_id:3,sender:'Sending doctor',recipient:'Receiving doctor',minute:360,created_at:1800000000,summary:'Fictional handover',tasks:{items:[{entry_id:1,action:'Pending demo review',review_minute:480}],count:1,truncated:false}}
+    const render=user=>renderToStaticMarkup(React.createElement(HandoverCards,{items:[item],user,minute:1440,busy:false,onAction:()=>{}}))
+    assert.match(render({id:3,role:'doctor'}),/Accept handover and take assignment/)
+    assert.doesNotMatch(render({id:3,role:'doctor'}),/Cancel handover/)
+    assert.match(render({id:2,role:'doctor'}),/Cancel handover/)
+    assert.doesNotMatch(render({id:2,role:'doctor'}),/Accept handover/)
+    assert.doesNotMatch(render({id:1,role:'admin'}),/Save handover action/)
+    assert.match(render({id:3,role:'doctor'}),/Pending demo review/)
+  } finally {await server.close()}
+})
+test('separate patient results distinguish missed deaths, unscored deaths and survivor burden', async()=>{
+  const server=await createComponentServer()
+  try{
+    const {default:SeparatePatients}=await server.ssrLoadModule('/src/components/SeparatePatients.jsx')
+    const {default:report}=await server.ssrLoadModule('/src/data/separatePatients.json')
+    const html=renderToStaticMarkup(React.createElement(SeparatePatients,{report}))
+    assert.match(html,/4,000 patients/);assert.match(html,/568 hospital-death labels/)
+    assert.match(html,/524 of 566/);assert.match(html,/1,990/)
+    assert.match(html,/no fitting or tuning/);assert.match(html,/not independent-hospital/)
+    assert.match(html,/including 2 death-labelled cases/)
+  }finally{await server.close()}
+})

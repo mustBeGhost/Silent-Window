@@ -10,6 +10,10 @@ import { permissions } from './permissions'
 import Login from './pages/Login'
 import { RequestNotificationProvider } from './context/RequestNotifications'
 import RequestNotice from './components/RequestNotice'
+import { WorkspaceLiveProvider } from './context/WorkspaceLive'
+const MyShift = lazy(() => import('./pages/MyShift'))
+import { DoctorReviewNotificationProvider, DoctorReviewNotice } from './context/DoctorReviewNotifications'
+const ReviewRequests = lazy(() => import('./pages/ReviewRequests'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const ModelPerformance = lazy(() => import('./pages/ModelPerformance'))
 const PatientDetails = lazy(() => import('./pages/PatientDetails'))
@@ -38,7 +42,7 @@ function PageContent({ children }) {
 }
 
 export default function App() {
-  return <AuthProvider><RequestNotificationProvider><SignedWorkspace /></RequestNotificationProvider></AuthProvider>
+  return <AuthProvider><WorkspaceLiveProvider><RequestNotificationProvider><DoctorReviewNotificationProvider><SignedWorkspace /></DoctorReviewNotificationProvider></RequestNotificationProvider></WorkspaceLiveProvider></AuthProvider>
 }
 
 function SignedWorkspace() {
@@ -57,7 +61,7 @@ function ModelWorkspace() {
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <Header />
       <Sidebar />
-      <RequestNotice />
+      <RequestNotice /><DoctorReviewNotice />
       <main className="main-content" id="main-content" tabIndex={-1}>
         <ModelNotice />
         <PageContent>
@@ -65,6 +69,8 @@ function ModelWorkspace() {
           <Route path="/" element={access.patients ? <Dashboard key={modelProfile} /> : <Navigate to="/model-performance" replace />} />
           <Route path="/patients/:patientId" element={access.patients ? <PatientDetails /> : <Navigate to="/model-performance" replace />} />
           <Route path="/model-performance" element={<ModelPerformance key={modelProfile} />} />
+          <Route path="/my-shift" element={access.patients ? <MyShift /> : <Navigate to="/model-performance" replace />} />
+          <Route path="/review-requests" element={access.patients ? <ReviewRequests /> : <Navigate to="/model-performance" replace />} />
           <Route path="/account" element={<Account />} />
           <Route path="/team" element={access.accounts ? <TeamAccounts /> : <Navigate to="/account" replace />} />
           <Route path="/requests" element={access.accounts ? <PermissionRequests /> : <Navigate to="/account" replace />} />

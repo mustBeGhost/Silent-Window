@@ -2,9 +2,17 @@ import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
 
 const VITAL_DISPLAY = {
   HR: { title: 'Heart rate', unit: 'bpm', color: '#ffaaa3' },
-  MAP: { title: 'Mean arterial pressure', unit: 'mmHg', color: '#ffbf69' },
+  MAP: { title: 'MAP · invasive', unit: 'mmHg', color: '#ffbf69' },
   GCS: { title: 'GCS', unit: '/ 15', color: '#7bd0ff' },
   Creatinine: { title: 'Creatinine', unit: 'mg/dL', color: '#c5a3ff' },
+  SysABP: { title: 'Systolic BP · invasive', unit: 'mmHg', color: '#ffbf69' },
+  DiasABP: { title: 'Diastolic BP · invasive', unit: 'mmHg', color: '#ffbf69' },
+  NISysABP: { title: 'Systolic BP · cuff', unit: 'mmHg', color: '#7bd0ff' },
+  NIDiasABP: { title: 'Diastolic BP · cuff', unit: 'mmHg', color: '#7bd0ff' },
+  NIMAP: { title: 'MAP · cuff', unit: 'mmHg', color: '#7bd0ff' },
+  RespRate: { title: 'Respiratory rate', unit: 'breaths/min', color: '#7bd0ff' },
+  SaO2: { title: 'Recorded arterial oxygen saturation', unit: '%', color: '#7bd0ff' },
+  Temp: { title: 'Temperature', unit: '°C', color: '#ffaaa3' },
 }
 
 function formatValue(value) {
@@ -24,6 +32,7 @@ export default function VitalChart({ parameter, measurements, availableThroughMi
       <div className="vital-value" style={{ color: display.color }}>
         {latest ? formatValue(latest.value) : '--'} <span>{latest ? display.unit : `No data through ${availableThroughMinutes / 60}h`}</span>
       </div>
+      {latest && <p className="panel-footnote">Recorded at {(latest.time_minutes / 60).toFixed(2)}h after admission; {availableThroughMinutes - latest.time_minutes} recorded minutes before this view.</p>}
       {measurements.length > 0 ? (
         <div className="vital-chart">
           <ResponsiveContainer width="100%" height="100%">
